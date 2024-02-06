@@ -4,15 +4,15 @@ PiBot is can be configured to receive pizza orders or party reservations, but ca
 
 ## Installation
 
-```
+```shell
 conda create -n rasa python=3.8
 conda activate rasa
 pip install rasa
-```shell
+```
 
 ## Usage
 
-```
+```shell
 conda activate rasa
 rasa shell
-```shell
+```
