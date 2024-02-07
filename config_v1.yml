@@ -1,0 +1,39 @@
+language: en
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: RegexFeaturizer
+
+  - name: LogisticRegressionClassifier
+    epochs: 200
+  - name: ResponseSelector
+    epochs: 200
+    constrain_similarities: trueW
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: FallbackClassifier
+    threshold: 0.65
+    ambiguity_threshold: 0.1
+
+
+policies:
+- name: UnexpecTEDIntentPolicy
+  epochs: 20
+  constrain_similarities: true
+- name: AugmentedMemoizationPolicy
+  max_history: 5
+- name: MemoizationPolicy
+  max_history: 3
+  priority: 4
+- name: RulePolicy
+  core_fallback_threshold: 0.3
+  core_fallback_action_name: "action_default_fallback"
+  enable_fallback_prediction: true
+
+
+# rasa run -m models --endpoints endpoints.yml 

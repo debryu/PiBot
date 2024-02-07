@@ -1,0 +1,1100 @@
+version: "3.1"
+nlu:
+- intent: ask_available_drinks
+  examples: |
+    - What drinks do you have?
+    - What drinks can I order?
+    - What drinks can I get?
+    - What drinks do you offer?
+    - What drinks are available?
+    - What drinks are on the menu?
+    - What drinks are there?
+    - What drinks can I choose from?
+    - What drinks are on offer
+    - Drinks menu
+    - Drink menu
+- intent: ask_calories
+  examples: |
+    - How many calories does the [margherita](pizza_type) have?
+    - How many calories does the [boscaiola](pizza_type) have?
+    - How many calories does the [gamberetti](pizza_type) have?
+    - How many calories does the [radicchio](pizza_type) have
+    - HOw much calories?
+    - How many calories?
+    - How many calories does [pepsy](drinks) have?
+    - How many calories does [coca](drinks) have?
+    - how many calories does [tiramisu](cake) have?
+    - how many calories does [cheesecake](cake) have?
+    - how many calories does [apple pie](cake) have?
+    - calories
+- intent: ask_available_cakes
+  examples: |
+    - What cakes do you have?
+    - What cakes can I order?
+    - What cakes can I get?
+    - What cakes do you offer?
+    - What cakes are available?
+    - What cakes are on the menu?
+    - What cakes are there?
+    - What cakes can I choose from?
+    - What cakes are on offer
+    - Cake menu
+    - Cakes menu
+- intent: order_party
+  examples: |
+    - i want to order a party
+    - i want to order a party for my birthday
+    - can i order a party?
+    - i want to order a party for my graduation
+    - i want to order a party for my wedding
+    - i want to order a party for my anniversary
+    - i want to order a party for my engagement
+    - i want to order a party for my promotion
+    - I want to have a party
+    - want to party
+    - order a celebration
+    - order a party
+    - want to reserve a room for a party
+    - reservation for a party
+    - party reservation
+    - organize a party
+    - party
+    - PARTY
+    - i want to setup a party
+- intent: provide_party_info
+  examples: |
+    - [tiramisu](cake)
+    - [cheesecake](cake)
+    - [apple pie](cake)
+    - [chocolate cake](cake)
+    - [strawberry cake](cake)
+    - [vanilla cake](cake)
+    - [lemon cake](cake)
+    - [carrot cake](cake)
+    - [tiramisù](cake)
+    - [sprite](drinks)
+    - [coca](drinks)
+    - [coca cola](drinks)
+    - [water](drinks)
+    - [beer](drinks)
+    - [43](pizza_amount) [people](human_target)
+    - [30](pizza_amount) [children](human_target)
+    - i want a party for [5](pizza_amount) [people](human_target)
+    - [20](pizza_amount) [people](human_target)
+    - [10](pizza_amount) [people](human_target)
+    - [15](pizza_amount) [people](human_target)
+    - [25](pizza_amount) [people](human_target)
+    - [3](pizza_amount) [people](human_target)
+    - [2](pizza_amount) [children](human_target)
+    - the number of [people](human_target) is [6](pizza_amount)
+    - we are in [7](pizza_amount)
+    - a party for [8](pizza_amount) [people](human_target)
+    - there are [9](pizza_amount) of us
+    - we are [4](pizza_amount)
+    - we are in [2](pizza_amount)
+    - for [10](pizza_amount) relatives
+    - for [11](pizza_amount) friends
+    - for [12](pizza_amount) colleagues
+    - for [13](pizza_amount) family
+    - for [14](pizza_amount) classmates
+    - for [15](pizza_amount) neighbors
+    - for [16](pizza_amount) friends and family in total
+    - a party for [17](pizza_amount) [people](human_target)
+    - a party for [18](pizza_amount) [people](human_target), including me
+    - i want a [cake](cake) and [cola](drinks) for [19](pizza_amount) [people](human_target)
+    - i want [sprite](drinks) for [21](pizza_amount)
+    - i want a [pie](cake) and we are in [22](pizza_amount)
+    - i want a [cheesecake](cake) for [23](pizza_amount) of us
+    - a [coca](drinks)
+    - a [coca cola](drinks)
+    - i want [water](drinks)
+    - i'll have a [beer](drinks)
+    - i want [wine](drinks)
+    - [champagne](drinks) please
+    - [cola](drinks)
+    - a [fanta](drinks)
+    - a [pepsi](drinks)
+    - i want [tiramisù](cake)
+    - i want [cheescake](cake)
+    - i want [apple pie](cake)
+    - i want [chocolate cake](cake)
+    - i want [strawberry cake](cake)
+    - i want [vanilla cake](cake)
+    - i want [lemon cake](cake)
+    - i want [carrot cake](cake)
+    - Please an [apple pie](cake)
+    - [coke](drinks)
+    - [34](pizza_amount) people
+    - [23](pizza_amount) people
+    - [cake](cake)
+    - [drinks](drinks)
+    - [24](pizza_amount) [children](human_target)
+    - [12](pizza_amount) [people](human_target)
+    - [pepsi](drinks)
+    - [cheescake](cake)
+    - [16](pizza_amount) [children](human_target)
+    - [cheesecake](cake)
+    - [coke](drinks)
+- intent: provide_banned_ingredients
+  examples: |
+    - i don't want [tomato](banned_ingredients)
+    - i don't want [tomatoes](banned_ingredients)
+    - i don't want [cheese](banned_ingredients)
+    - i don't want [olives](banned_ingredients)
+    - i don't want [mushrooms](banned_ingredients)
+    - i don't want [onions](banned_ingredients)
+    - i don't want [peppers](banned_ingredients)
+    - i don't want [ham](banned_ingredients)
+    - i don't want [tuna](banned_ingredients)
+    - i don't want [egg](banned_ingredients)
+    - i don't like [tomato](banned_ingredients)
+    - i don't like [tomatoes](banned_ingredients)
+    - i don't like [cheese](banned_ingredients)
+    - i don't like [olives](banned_ingredients)
+    - please no [mushrooms](banned_ingredients)
+    - please no [onions](banned_ingredients)
+    - please no [peppers](banned_ingredients)
+    - please no [ham](banned_ingredients)
+    - [tuna](banned_ingredients) is not good for me
+    - i'm allergic to [egg](banned_ingredients)
+    - i'm intolerant to [tomato](banned_ingredients) and similar
+    - i'm intolerant to [cheese](banned_ingredients)
+    - avoid [olives](banned_ingredients) please
+    - let's avoid [mushrooms](banned_ingredients)
+    - avoid [onions](banned_ingredients)
+    - [tomaotes](banned_ingredients)
+    - [cheese](banned_ingredients)
+    - [olives](banned_ingredients)
+    - [mushrooms](banned_ingredients)
+    - [onions](banned_ingredients)
+    - [peppers](banned_ingredients)
+    - [ham](banned_ingredients)
+    - [tuna](banned_ingredients)
+    - [egg](banned_ingredients)
+    - [milk](banned_ingredients)
+    - [lactose](banned_ingredients)
+    - [gluten](banned_ingredients)
+    - [wheat](banned_ingredients)
+    - [soy](banned_ingredients)
+    - [nuts](banned_ingredients)
+    - [peanuts](banned_ingredients)
+    - [fish](banned_ingredients)
+    - [shellfish](banned_ingredients)
+    - [crustaceans](banned_ingredients)
+    - i don't want [olives](banned_ingredients), [mushrooms](banned_ingredients) and [onions](banned_ingredients)
+    - ban [peppers](banned_ingredients) and [ham](banned_ingredients)
+    - don't use [tuna](banned_ingredients) and [egg](banned_ingredients)
+    - [tomaotes](banned_ingredients), [cheese](banned_ingredients), [olives](banned_ingredients), [mushrooms](banned_ingredients) and [milk](banned_ingredients)
+    - [onions](banned_ingredients), [peppers](banned_ingredients), [ham](banned_ingredients), [tuna](banned_ingredients), [egg](banned_ingredients) and [fish](banned_ingredients)
+    - [onions](banned_ingredients) and [tuna](banned_ingredients)
+    - just [olives](banned_ingredients)
+    - [onions](banned_ingredients), [olives](banned_ingredients) and [tuna](banned_ingredients)
+    - [olives](banned_ingredients)
+- intent: restart_the_bot
+  examples: |
+    - RESTART
+    - restart
+    - start again
+    - start over
+    - start from scratch
+    - start again please
+    - delete everything
+    - delete all
+    - delete all please
+    - delete everything please
+    - restart from the beginning
+    - restart from scratch
+    - restart please
+    - restart the conversation
+    - restart the chat
+    - restart the bot
+    - reboot
+    - i want to restart
+    - i want to redo everything
+    - i want to start over
+    - can you restart?
+    - can you restart please?
+    - can you restart the conversation?
+    - can you start over?
+    - can i resume from the beginning?
+    - forget all
+    - forget everything
+    - clean everything
+    - clean all
+    - clean
+    - discard everything
+    - discard all
+- intent: chitchat/help
+  examples: |
+    - help
+    - i need help
+    - i need some help
+    - i need some help please
+    - help me
+    - tutorial
+    - -help
+    - -h
+    - don't know what to do
+    - i don't know what to do
+- intent: chitchat/ask_name
+  examples: |
+    - what's your name?
+    - what is your name?
+    - what are you called?
+    - who are you?
+    - what should I call you?
+    - name?
+    - what's your name
+    - tell me your name
+    - what do you call yourself?
+- intent: chitchat/ask_discount
+  examples: |
+    - Can i have a discount?
+    - Can i have a discount please?
+    - Please i'm poor give me a discount
+    - I'm poor give me a discount
+    - Is there a way to pay less?
+    - Can i pay less?
+    - Can you give me pizzas for free?
+    - Do you have any discount?
+    - Do you have any offers?
+    - easteregg
+    - Is there an easter egg?
+    - Point me to the easter egg
+    - easter egg
+- intent: chitchat/ask_howdoing
+  examples: |
+    - how are you?
+    - how are you doing?
+    - how do you do?
+    - how are you doing today?
+    - how is your day?
+    - how is your day going?
+    - how is life?
+    - how are things?
+    - how's everything?
+    - how's it going?
+    - what's up?
+    - whatsup?
+    - wassup?
+- intent: chitchat/out_of_scope
+  examples: |
+    - Take a picture
+    - Send me a picture
+    - Send me a photo
+    - Listen to this song
+    - Play this song
+    - move to the left
+    - move to the right
+    - move forward
+    - I want to buy a car
+    - I want to buy a house
+    - I want to buy a boat
+    - What is the price of bitcoin
+    - What is the price of ethereum
+    - What do you think about Elon Musk?
+    - What do you think about Donald Trump?
+    - What do you think about Joe Biden?
+- intent: faq/party_price
+  examples: |
+    - How much does the party cost?
+    - How much does the party reservation cost?
+    - How much does the party setup cost?
+    - How much does the party organization cost?
+    - How much for the party
+    - party cost
+    - party price
+    - party reservation cost
+    - party setup cost
+    - party organization cost
+
+- intent: faq/how_party_works
+  examples: |
+    - How does the party work?
+    - How does the party reservation work?
+    - How does the party setup work?
+    - How does the party organization work?
+    - What is the party setup?
+    - What do i get with the party setup?
+    - What is a party setup?
+    - What is a party reservation?
+    - What do i get with the party reservation?
+    - What do you mean with party setup?
+    - What do you mean with party reservation?
+    - What is ordering a party?
+- intent: faq/staff
+  examples: |
+    - Who is your boss?
+    - Who is your manager?
+    - Who is your supervisor?
+    - Who is your owner?
+    - Who is your master?
+    - Who is your creator?
+    - Who makes the pizza?
+    - Who cooks the pizza?
+    - Who is the chef?
+    - Who is the cook?
+- intent: user_asks_when_payment
+  examples: |
+    - When do I have to pay?
+    - Can i pay?
+    - How do i pay?
+    - payement
+    - i want to pay with card
+    - i want to pay with cash
+    - how does the payment work?
+    - cash or card?
+    - when payment?
+
+- intent: faq/ingredients
+  examples: |
+    - What are the ingredients?
+    - What is in the pizza?
+    - What is in the dough?
+    - What is in the sauce?
+    - What is in the cheese?
+    - What is in the tomato sauce?
+    - What is in the tomato?
+    - What is in the mozzarella?
+    - What kind of cheese do you use?
+    - What kind of tomato do you use?
+    - What kind of mozzarella do you use?
+    - What kind of sauce do you use?
+    - What kind of dough do you use?
+    - What kind of flour do you use?
+    - What kind of water do you use?
+    - What kind of yeast do you use?
+    - Celiac?
+    - Gluten free?
+    - Vegan?
+    
+    
+- intent: faq/vegan
+  examples: |
+    - Do you have vegan pizza?
+    - Is your pizza vegan?
+- intent: faq/gluten_free
+  examples: |
+    - Do you have gluten free pizza?
+    - Is your pizza gluten free?
+- intent: faq/name_question
+  examples: |
+    - should i give you only my name?
+    - also surname?
+    - name and surname?
+    - only name?
+    - only surname?
+    - name or surname?
+    - should i also add my surname?
+    - should i also use the surname?
+    - I have two names, which one should I use?
+- intent: faq/more_pizza_order
+  examples: |
+    - I want to order more pizza
+    - yes but i also want another pizza
+    - i want other pizzas
+    - i want to order more
+- intent: faq/ask_beverage
+  examples: |
+    - Can i get a drink?
+    - Can i have a drink?
+    - Can i order a drink?
+
+- intent: change_order_or_info
+  examples: |
+    - I want to change [order](focus)
+    - i want to change [name](focus)
+    - [name](focus) to [michele](user_name)
+    - want to change [address](focus) with [via perini](user_address) [1](pizza_amount)
+    - i want to change [address](focus) to [via maccani,12](user_address)
+    - i want to change [address](focus) to [via maccani] number [8](pizza_amount)
+    - just the [time](focus)
+    - i want to change [pizza](focus)
+    - change [location](focus)
+    - i put the wrong [location](focus)
+    - change [location] to [via einstein nr2](user_address)
+    - i want to change [time](focus) to [dinner](user_time)
+    - no change [time](focus) to [dinner](user_time)
+    - change [name](focus) with [erika](user_name)
+- intent: ask_menu_pizza
+  examples: |
+    - MENU
+    - What do you have?
+    - What do you offer?
+    - What can I order?
+    - What can I eat?
+    - What can I get?
+    - What pizza do you have?
+    - What pizza do you offer?
+    - What pizza can I order?
+    - What pizza can I eat?
+    - What pizza can I get?
+    - What food do you have?
+    - What food do you offer?
+    - What food can I order?
+    - What food can I eat?
+    - What food can I get?
+    - can you give me some options?
+    - can you give me options?
+    - What are the options?
+    - do you have a menu?
+    - I want to see the menu
+    - show the menu
+    - what can i choose?
+    - menu please
+    - which types of pizza do yu have?
+    - which types of pizza do you have?
+    - i don't like any of them. do you have anything else?
+    - Do you have anything else?
+    - yes, what pizza do you have
+    - menu
+    - what pizza do you have
+- intent: ask_menu_vegetarian
+  examples: |
+    - What vegetarian food do you have?
+    - What vegetarian food do you offer?
+    - What vegetarian food can I order?
+    - What vegetarian food can I eat?
+    - What vegetarian food can I get?
+    - What vegetarian pizza do you have?
+    - What vegetarian pizza do you offer?
+    - What vegetarian pizza can I order?
+    - What vegetarian pizza can I eat?
+    - What vegetarian pizza can I get?
+    - do you have a vegetarian pizza?
+    - Do you have vegetarian pizza?
+    - do you have vegetarian pizza?
+    - do you have veggy
+    - do you have veggy pizza?
+- intent: ask_menu_meat
+  examples: |
+    - What meat food do you have?
+    - What meat food do you offer?
+    - What meat food can I order?
+    - What meat food can I eat?
+    - What meat food can I get?
+    - What meat pizza do you have?
+    - What meat pizza do you offer?
+    - What meat pizza can I order?
+    - What meat pizza can I eat?
+    - What meat pizza can I get?
+    - do you have a meat pizza?
+    - do you have meat pizzas?
+- intent: ask_menu_fish
+  examples: |
+    - What fish food do you have?
+    - What fish food do you offer?
+    - What fish food can I order?
+    - What fish food can I eat?
+    - What fish food can I get?
+    - What fish pizza do you have?
+    - What fish pizza do you offer?
+    - What fish pizza can I order?
+    - What fish pizza can I eat?
+    - What fish pizza can I get?
+    - do you have a fish pizza?
+    - do you have pizza with fish?
+- intent: ask_menu_home_specialty
+  examples: |
+    - What home specialty food do you have?
+    - What home specialty food do you offer?
+    - What home specialty food can I order?
+    - What home specialty food can I eat?
+    - What home specialty food can I get?
+    - What home specialty pizza do you have?
+    - What home specialty pizza do you offer?
+    - What home specialty pizza can I order?
+    - What home specialty pizza can I eat?
+    - What home specialty pizza can I get?
+    - what is your specialty?
+    - what is your specialty pizza?
+    - what is your special food?
+    - What is this restaurant's specialty?
+    - What is this restaurant's specialty pizza?
+    - What is this restaurant's special food?
+    - What is the pizza that makes you special?
+    - do you have a special pizza?
+    - do you have special pizza?
+- intent: ask_worried_about_data
+  examples: |
+    - Why do you need all this information?
+    - Why do you need my [name](focus)?
+    - Why do you need my [address](focus)?
+    - I care about my privacy
+    - I don't want to give you my data
+    - I don't want to give you my personal information
+    - I don't want to give you my [name](focus)
+    - I don't want to give you my [address](focus)
+    - I'm not feeling comfortable giving you my data
+    - why do you need my [name](focus)?
+    - why do you need my information?
+    - why do you need my [address](focus)?
+    - that's none of your business
+    - none of your business
+- intent: ask_offered_services
+  examples: |
+    - What can you do?
+    - what can you do?
+    - what can this bot do?
+    - what can this bot do for me?
+    - what is this bot for?
+    - what is this bot?
+    - What are you able to do?
+    - What can you do for me?
+    - How can you help me?
+    - list your services
+    - list the tasks you can do
+    - list the things you can do
+    - what can I ask you?
+- intent: affermative
+  examples: |
+    - yes
+    - yes please
+    - yes, please
+    - Sure
+    - I'm sure
+    - do it
+    - confirm
+    - affermative
+    - Yeah
+    - yup
+    - ye
+    - yep
+    - yea
+    - y
+    - Y
+    - continue
+    - yes that's correct
+    - yes correct
+    - yes then
+    - correct
+    - yes it's fine
+    - it's fine
+- intent: negative
+  examples: |
+    - no
+    - no please
+    - no, please
+    - Nope
+    - Not at all
+    - don't do it
+    - do not
+    - negative
+    - Nop
+    - Nein
+    - N
+    - n
+    - No way
+    - no that's it
+    - no that's all
+    - tahat's it
+    - that's all
+    - that it
+    - no thats it
+    - no [drinks](drinks)
+    - no [cake](cake)
+    - i don't want any [drinks](drinks)
+    - i don't want any [cake](cake)
+    - no [drinks](drinks) please
+    - i don't want any [drink](drinks)
+    - no i want to change [drinks](drinks)
+    - no i want to change [cake](cake)
+    - no i want [water](drinks)
+    - no i want [beer](drinks)
+    - no i want [tiramisu](cake)
+    - i changed my mind
+    - i changed my mind, i want [water](drinks)
+    - i changed my mind i want [apple pie](cake)
+    - change that, i want [beer](drinks)
+    - put [water](drinks) instead
+    - put [cheesecake](cake) instead
+    - instead of [beer](drinks) i want [water](drinks)
+    - instead of [tiramisu](cake) i want [apple pie](cake)
+    - i don't have banned ingredients
+    - i have none
+    - zero
+    - none
+    - i'm not allergic
+    - i'm not intolerant
+    - i'm not intolerant to anything
+    - i don't mind
+    - i don't care
+    - no problem
+    - i don't have any
+    - no i want [pepsi](drinks) instead
+- intent: welcome_greet
+  examples: |
+    - Hello There!
+    - Hi.
+    - Hello, i'm [Nicola](user_name).
+    - Hi. My name is [elisa](user_name).
+    - Hi, i'm [giulio](user_name).
+    - Ciao, this is [Kevin](user_name).
+    - hi from [Michael](user_name)
+    - Hi, i'm [Jack](user_name).
+    - Hi, i'm [Giovanni](user_name).
+    - Hi, i'm [giacomo](user_name).
+    - Hi, i'm [aldo](user_name).
+    - hello
+    - Hello
+    - i'm [rick](user_name)
+    - i'm [kevin]{"entity": "user_name", "value": "Kevin"}
+    - hey
+    - hi
+
+- intent: ask_pizza_price
+  examples: |
+    - i would like a pizza [boscaiola](pizza_type). how much is it?
+    - great, i would like a [Gamberetti](pizza_type). how much is it?
+    - how much is it?
+    - how much is a [Margherita](pizza_type)?
+    - how much is a [romana](pizza_type) pizza?
+    - what is the cost of a [radicchio](pizza_type)?
+    - how much for a [radicchiosa](pizza_type)?
+    - how many euros is a [wurstel](pizza_type)?
+    - how much euros for a [calzone](pizza_type)?
+    - how much for a [tonno](pizza_type)?
+    - how much for a [salsiccia](pizza_type)?
+    - abd what's the price of a [speck](pizza_type)?
+    - and whats the cost of a [salame](pizza_type)?
+    - whats the price of a [tonno](pizza_type)?
+    - what is the cost of a [salsiccia](pizza_type)?
+    - what's the price of a [speck](pizza_type)?
+    - and what's the cost of a [salame](pizza_type)?
+    - and wjats the price of a [tonno](pizza_type)?
+    - and whats the cost of a [salsiccia](pizza_type)?
+    - and what is the cost of a [speck](pizza_type)?
+    - and what's the price of a [salame](pizza_type)?
+    - how much for a [diavola](pizza_type)?
+    - how much does it cost?
+    - How much for a [margherita]{"entity": "pizza_type", "value": "Margherita"}?
+    - wait how much does it cost?
+    - and how much for a [margherita]{"entity": "pizza_type", "value": "Margherita"}?
+    - how much for a [margherita]{"entity": "pizza_type", "value": "Margherita"}?
+    - how much?
+    - how much cost?
+- intent: provide_detailed_pizza_order
+  examples: |
+    - i want a [salamino](pizza_type) pizza
+    - i want a [mortadella](pizza_type) pizza
+    - i want a [prosciutto e funghi](pizza_type) pizza
+    - i want a [peperoni](pizza_type) pizza
+    - i want a [diavola](pizza_type) pizza
+    - i want a [wurstel and fries](pizza_type) pizza
+    - i want a [kebab](pizza_type) pizza
+    - i want a [crudo](pizza_type) pizza
+    - i want a [ricotta e spinaci](pizza_type) pizza
+    - i want a [ricotta](pizza_type) pizza
+    - lemme have a [bufala](pizza_type) pizza
+    - please a [bufalina](pizza_type) pizza
+    - make it [two](pizza_amount) [margheritas](pizza_type)
+    - make it [three](pizza_amount)
+    - a simple [margherita](pizza_type)
+    - a basic [gamberetti](pizza_type) pizza
+    - some [radicchio](pizza_type)
+    - i want a [pizza boscaiola](pizza_type)
+    - i want a classic [margherita](pizza_type)
+    - let me have a [margherita](pizza_type)
+    - for me a [margherita](pizza_type)
+    - i would like a pizza [boscaiola](pizza_type)
+    - I want [one](pizza_amount) [diavola](pizza_type)
+    - I want [two](pizza_amount) [margherita](pizza_type)
+    - I want [three](pizza_amount) [quattro stagioni](pizza_type)
+    - I want [four](pizza_amount) [quattro formaggi](pizza_type)
+    - [dozen](pizza_amount) [normal](pizza_size) [margheritas](pizza_type)
+    - [four](pizza_amount) [small](pizza_size) [prosciuttos](pizza_type)
+    - [Prosciutto e funghi](pizza_type)
+    - A [capricciosa](pizza_type)
+    - [boscaiola](pizza_type)
+    - great, i would like a [quattro formaggi](pizza_type)
+    - i want a [quattro formaggi](pizza_type)
+    - a [single](pizza_amount) [prosciutto](pizza_type)
+    - just [one](pizza_amount) [pepperoni](pizza_type) pizza
+    - A [marinara](pizza_type). [3](pizza_amount) of them.
+    - [2](pizza_amount) [Margherita](pizza_type).
+    - [1](pizza_amount) [maxi](pizza_size) pizza.
+    - Please, [1](pizza_amount) [margherita](pizza_type).
+    - [1](pizza_amount) [margherita](pizza_type) [maxi](pizza_size).
+    - [maxi](pizza_size)
+    - Then I will have [two](pizza_amount) [tonnos](pizza_type) [classic](pizza_size)
+    - Then i would like to have just [1](pizza_amount) [boscaiola](pizza_type), [regular](pizza_size)
+    - Then i will have [six](pizza_amount) [radicchio saltato](pizza_type)
+    - [radicchio saltato](pizza_type)
+    - a [normal](pizza_size) [RAdicchioSA](pizza_type)
+    - Then [two](pizza_amount) [tonnos](pizza_type)
+    - Then [one](pizza_amount) [tonno](pizza_type)
+    - a [normal](pizza_size) one
+    - the [classic](pizza_size) one
+    - [classic](pizza_size)
+    - [huge](pizza_size)
+    - [big](pizza_size)
+    - [average](pizza_size)
+    - [normal](pizza_size)
+    - [large](pizza_size)
+    - [small](pizza_size)
+    - [one](pizza_amount)
+    - [three](pizza_amount)
+    - [two](pizza_amount)
+    - [1](pizza_amount)
+    - please make it [large](pizza_size)
+    - i want it [small](pizza_size)
+    - I want a [margherita](pizza_type) pizza.
+    - I would like a pizza [capricciosa](pizza_type).
+    - I want [one](pizza_amount) [ortolana](pizza_type) pizza.
+    - I want [two](pizza_amount) [boscaiola](pizza_type) pizzas.
+    - I want [three](pizza_amount) [romana](pizza_type) pizzas.
+    - I want [four](pizza_amount) [napoletana](pizza_type) pizzas.
+    - [Dozen](pizza_amount) [normal](pizza_size) [marinara](pizza_type).
+    - [Four](pizza_amount) [small](pizza_size) [funghi](pizza_type).
+    - [Prosciutto e funghi](pizza_type).
+    - A [tonno](pizza_type).
+    - [Gamberetti](pizza_type).
+    - I want a [diavola](pizza_type) pizza.
+    - I would like a pizza [prosciutto](pizza_type).
+    - I want [one](pizza_amount) [salame](pizza_type) pizza.
+    - I want [two](pizza_amount) [salsiccia](pizza_type) pizzas.
+    - I want [three](pizza_amount) [speck](pizza_type) pizzas.
+    - I want [four](pizza_amount) [wurstel](pizza_type) pizzas.
+    - [Dozen](pizza_amount) [normal](pizza_size) [calzone](pizza_type).
+    - [Four](pizza_amount) [small](pizza_size) [capricciosa](pizza_type).
+    - [Marinara](pizza_type).
+    - A [funghi](pizza_type).
+    - [Margherita](pizza_type).
+    - [radicchiosa](pizza_type)
+    - the [RAdicchioSA](pizza_type)
+    - a [funghi](pizza_type)
+    - [two](pizza_amount) [margheritas](pizza_type)
+    - i want a [margherita]{"entity": "pizza_type", "value": "Margherita"} pizza
+    - a [ortolana](pizza_type)
+    - a simple [margherita]{"entity": "pizza_type", "value": "Margherita"}
+    - just [one](pizza_amount)
+    - [prosciutto](pizza_type)
+    - [one](pizza_amount) [prosciutto](pizza_type)
+    - yes, a [calzone](pizza_type)
+    - [2](pizza_amount)
+    - i want [2](pizza_amount) [maxi](pizza_size) [calzone](pizza_type)
+    - [maxi](pizza_size) [radicchiosa](pizza_type)
+    - [radicchio](pizza_type)
+    - [one](pizza_amount) [margherita]{"entity": "pizza_type", "value": "Margherita"}
+    - yes [one](pizza_amount) [maxi](pizza_size) [prosciutto](pizza_type)
+    - no sorry i want it [normal](pizza_size)
+    - I want [one](pizza_amount) [maxi](pizza_size) [prosciutto](pizza_type)
+    - yes [two](pizza_amount) [normal](pizza_size) [calzone](pizza_type)
+    - i want a [carpicciosa](pizza_type) then
+    - sorry i mean [capricciosa](pizza_type)
+    - a [maxi](pizza_size) if possible
+    - i want [two](pizza_amount) [diavolas](pizza_type)
+    - [samll](pizza_size)
+    - Ok so i want a [tonno](pizza_type)
+    - i don't know, let's say [2](pizza_amount)
+    - then i will also grab a [normal](pizza_size) [salsiccia](pizza_type).
+    - jessica
+    - i want [one](pizza_amount) [maxi](pizza_size) [margherita]{"entity": "pizza_type", "value": "Margherita"}
+    - yes [two](pizza_amount) [prosciutto](pizza_type)
+    - yes [2](pizza_amount) [maxi](pizza_size) [calzone](pizza_type)
+    - yes [one](pizza_amount) [maxi](pizza_size) [gamberetti]{"entity": "pizza_type", "value": "Gamberetti"}
+    - yes [two](pizza_amount) [boscaiola](pizza_type)
+    - i will have [two](pizza_amount) [prosciutto](pizza_type)
+    - A [diavola](pizza_type)
+    - [two](pizza_amount) please
+    - i want [two](pizza_amount) [margheritas](pizza_type)
+    - a [maxi](pizza_size) [marinara](pizza_type)
+    - yes i also want a [normal](pizza_size) [prosciutto](pizza_type)
+    - [one](pizza_amount) [radicchiosa](pizza_type)
+    - a [radicchio](pizza_type) then
+    - for [two](pizza_amount) people
+    - no wait, i want a [margherita]{"entity": "pizza_type", "value": "Margherita"} instead
+    - a [margherita]{"entity": "pizza_type", "value": "Margherita"}
+    - [tonno](pizza_type)
+    - yes [one](pizza_amount) [prosciutto](pizza_type), the [classic](pizza_size) one
+    - [two](pizza_amount) [tonnos](pizza_type), the [normal](pizza_size) ones
+    - Ok i want to order a [radicchiosa](pizza_type)
+    - Ok then i want a [margherita]{"entity": "pizza_type", "value": "Margherita"} instead
+    - then i will have a [gamberetti]{"entity": "pizza_type", "value": "Gamberetti"}
+    - [one](pizza_amount) [marghertia](pizza_type)
+    - i want to order [one](pizza_amount) [prosciutto](pizza_type)
+    - yes i want a [radicchiosa](pizza_type)
+    - a [speck](pizza_type)
+    - make it [two](pizza_amount)
+    - i want [two](pizza_amount) [gamberetti]{"entity": "pizza_type", "value": "Gamberetti"}
+    - [five](pizza_amount)
+    - [six](pizza_size)
+    - [seven](pizza_amount)
+    - [eight](pizza_amount)
+    - [nine](pizza_amount)
+    - [ten](pizza_amount)
+    - [eleven](pizza_amount)
+    - [twelve](pizza_amount)
+    - [thirteen](pizza_amount)
+    - [fourteen](pizza_amount)
+    - [fifteen](pizza_amount)
+    - [sixteen](pizza_amount)
+    - [seventeen](pizza_amount)
+    - [eighteen](pizza_amount)
+    - [nineteen](pizza_amount)
+    - [twenty](pizza_amount)
+    - [envelope](pizza_type)
+    - i want an [envelope](pizza_type)
+    - [envelope](pizza_type) please
+    - [pepperoni](pizza_type)
+    - [mountain](pizza_type)
+    - [snowflake](pizza_type)
+    - [hawaii](pizza_type)
+    - [eagle](pizza_type)
+    - [castle](pizza_type)
+    - [king](pizza_type)
+    - I want a [pepperoni](pizza_type)
+    - I want a [mountain](pizza_type)
+    - I want a [snowflake](pizza_type)
+    - I want a [hawaii](pizza_type)
+    - I want an [eagle](pizza_type)
+    - I want a [castle](pizza_type)
+    - I want a [king](pizza_type)
+
+- intent: demand_generic_order
+  examples: |
+    - I want to order
+    - I want a pizza
+    - A pizza
+    - pizza
+    - Make an order
+    - i want to make an order
+    - i want to make an order for a pizza
+    - Please pizza
+    - I want food
+    - want to eat
+    - i need to eat.
+    - i would like to order a pizza
+    - I want to order a pizza
+    - i want to order a pizza
+    - ORDER A PIZZA
+    - order a piza
+    - make order
+    - ORDER
+    - order
+    - i want to order
+    - me order want
+    - please let me order
+    - let me order a pizza
+- intent: ask_generic_order
+  examples: |
+    - Can i order?
+    - Can I have a pizza?
+    - Can i get some food?
+    - Do you offer pizzas?
+    - Do you sell food?
+    - do you sell pizza?
+    - can you order a pizza?
+    - hello can i order a pizza?
+    - can i order a pizza?
+- intent: exit
+  examples: |
+    - Bye
+    - Goodbye
+    - See you later
+    - Bye bye
+    - That's it.
+    - I have to go.
+    - i have to go now
+    - stop
+- intent: provide_personal_info
+  examples: |
+    - My name is [Nicola](user_name)
+    - [franco](user_name) and i want it for [dinnertime](user_time)
+    - [giuseppe](user_name) and i want it for [lunch](user_time)
+    - i'm [giulio](user_name) and the order is for [dinner](user_time)
+    - [gianfranco](user_name), [via verdi](user_address) [1](pizza_amount), [lunch](user_time)
+    - [Elisa](user_name)
+    - [alberto](user_name)
+    - name: [Michele](user_name)
+    - [gabriele](user_name)
+    - [Giuseppe](user_name)
+    - [Beppe](user_name)
+    - [Mahed](user_name)
+    - [Giuliano](user_name)
+    - [kevin](user_name)
+    - [Michael](user_name)
+    - [Jack](user_name)
+    - [Giovanni](user_name)
+    - [giacomo](user_name)
+    - my name [sara](user_name)
+    - name: [chiara](user_name)
+    - My name is [Irene](user_name)
+    - [Rossana](user_name) is my name
+    - [Francesca](user_name)
+    - I live in [via verdi,13](user_address)
+    - at [lunch](user_time)
+    - at [dinner](user_time)
+    - in the [night](user_time)
+    - at [dinner](user_time) time
+    - for [lunch](user_time)
+    - at [20:30](user_time)
+    - at [13:30](user_time)
+    - my name is [elena](user_name) and i live in [via verdi](user_address) [33](pizza_amount)
+    - i'm [elena](user_name)
+    - [anna](user_name)
+    - [marta](user_name)
+    - [laura](user_name)
+    - [giulia](user_name)
+    - [francesca](user_name)
+    - [marianna](user_name)
+    - [alba](user_name)
+    - [chiara](user_name)
+    - deliver to [piazza fiera](user_address) [1](pizza_amount)
+    - fell free to deliver to [largo nazario sauro](user_address) [1](pizza_amount)
+    - im [Elisa](user_name) and live in [via del dos di sant'elena](user_address) [10](pizza_amount)
+    - my anem is [eli](user_name)
+    - hoem address is [via malpensada](user_address), nr [15](pizza_amount)
+    - my ome adres is [viale largo colombo n23](user_address)
+    - my home address is [via Roma] number [14](user_address)
+    - [via malpighi](user_address) [21](pizza_amount)
+    - [Avenue street](user_address) [55](pizza_amount)
+    - [piazza centa](user_address), [12](pizza_amount)
+    - my name is [nicola](user_name) and i live in [via verdi](user_address)
+    - i'm [riccardo](user_name) and i live in [via verdi](user_address) [7](pizza_amount)
+    - my name is [nicola]{"entity": "user_name", "value": "Nicola"}
+    - i live in [via verdi](user_address) [12](pizza_amount)
+    - [Via Milano](user_address)
+    - [Corso Italia](user_address)
+    - [Piazza Dante](user_address)
+    - [francesco](user_name)
+    - [Franco](user_name)
+    - my name is [Francesco](user_name)
+    - [Viale dei Fiori](user_address)
+    - [Via Verdi](user_address)
+    - [Via Garibaldi](user_address)
+    - [Via Roma](user_address)
+    - [Vicolo Stretto](user_address)
+    - [Corso Umberto](user_address)
+    - [Piazza San Marco](user_address)
+    - [Via Leonardo da Vinci](user_address)
+    - [Via dei Mille](user_address)
+    - [Viale dei Giardini](user_address)
+    - [Via della Libertà](user_address)
+    - [Via della Repubblica](user_address)
+    - [Piazza del Popolo](user_address)
+    - [Corso Vittorio Emanuele](user_address)
+    - [Via XX Settembre](user_address)
+    - [Viale delle Palme](user_address)
+    - [Via Aldo Moro](user_address)
+    - [Via Francesco Petrarca](user_address)
+    - [Viale della Vittoria](user_address)
+    - [Via Giacomo Leopardi](user_address)
+    - [Corso Cavour](user_address)
+    - [Piazza Garibaldi](user_address)
+    - [Via Cavour](user_address)
+    - [Via Dante Alighieri](user_address)
+    - [Viale Roma](user_address)
+    - [Via Carducci](user_address)
+    - [Piazza Vittorio Veneto](user_address)
+    - [Corso Garibaldi](user_address)
+    - [Via Giuseppe Verdi](user_address)
+    - [Viale Trento](user_address)
+    - [Via Giosuè Carducci](user_address)
+    - [Viale Marconi](user_address)
+    - [Via IV Novembre](user_address)
+    - [Piazza della Repubblica](user_address)
+    - [Corso Vittorio Veneto](user_address)
+    - [Via Giuseppe Mazzini](user_address)
+    - [Viale dei Tigli](user_address)
+    - [Via del Corso](user_address)
+    - [Piazza Matteotti](user_address)
+    - [Viale della Libertà](user_address)
+    - [Corso Umberto I](user_address)
+    - [Via Donizetti](user_address)
+    - [Vicolo delle Rose](user_address)
+    - [Via dei Gerani](user_address)
+    - [Viale dei Pini](user_address)
+    - [Via dei Faggi](user_address)
+    - [Piazza del Municipio](user_address)
+    - [Via XXV Aprile](user_address)
+    - [Viale delle Acacie](user_address)
+    - [Via della Stazione](user_address)
+    - [Piazza Risorgimento](user_address)
+    - [Via Amendola](user_address)
+    - [Viale degli Ulivi](user_address)
+    - [Via Montegrappa](user_address)
+    - [Viale Europa](user_address)
+    - [Via dei Ciliegi](user_address)
+    - [Piazza Giuseppe Garibaldi](user_address)
+    - [Via delle Magnolie](user_address)
+    - [Viale delle Rose](user_address)
+    - [Corso Roma](user_address)
+    - [Via dei Tulipani](user_address)
+    - [Piazza Sant'Oronzo](user_address)
+    - [Viale delle Mimose](user_address)
+    - [Viale della Pace](user_address)
+    - [Corso dei Mille](user_address)
+    - [Via delle Viole](user_address)
+    - [Piazza della Libertà](user_address)
+    - [Viale dei Ciclamini](user_address)
+    - [Viale XX Settembre](user_address)
+    - [Piazza della Costituzione](user_address)
+    - [Via Guglielmo Marconi](user_address)
+    - [Viale Umberto I](user_address)
+    - [Via della Liberta](user_address)
+    - [Piazza Roma](user_address)
+    - [Viale Italia](user_address)
+    - [Via Giuseppe Garibaldi](user_address)
+    - [Corso Vittorio Emanuele II](user_address)
+    - [Via Matteotti](user_address)
+    - [Viale della Stazione](user_address)
+    - [Via Dante](user_address)
+    - [Piazza della Vittoria](user_address)
+    - [Piazza Umberto I](user_address)
+    - [Viale dei Faggi](user_address)
+    - [Via delle Rose](user_address)
+    - [Via Vittorio Veneto](user_address)
+    - [Viale della Repubblica](user_address)
+    - [Corso Matteotti](user_address)
+    - [Piazza XXV Aprile](user_address)
+    - i live in [via perini](user_address) [12](pizza_amount)
+    - for [dinner](user_time) thank you
+    - [nicola]{"entity": "user_name", "value": "Nicola"}
+    - [via verdi](user_address) [1](pizza_amount)
+    - [lunch](user_time)
+    - [nicola]{"entity": "user_name", "value": "Nicola"}, i want it for [lunch](user_time). [deliver](user_address) at [via einstein](user_address) [21](pizza_amount)
+    - [via verdi](user_address) [2](pizza_amount)
+    - i'm [jessica](user_name), i want my pizza for [lunch](user_time)
+    - [giorgia](user_name), [via verdi](user_address) [2](pizza_amount)
+    - [stefano](user_name), [lunch](user_time), [via verdi](user_address) [1](pizza_amount)
+    - [mauro]{"entity": "user_name", "value": "Mauro"}, [lunch](user_time), [via milano]{"entity": "user_address", "value": "Via Milano"} [6](pizza_amount)
+    - [Matteo](user_name), [via verdi](user_address) [12](pizza_amount), [lunch](user_time)
+    - i live in [via del dos di sant'elia](user_address) number [20](pizza_amount)
+    - [enrico](user_name)
+    - [via dos](user_address) [100](pizza_amount)
+    - for [dinner](user_time)
+    - i live in [via san bartolomeo](user_address) [13](pizza_amount)
+    - i live in [via dei portoni](user_address) [45](pizza_amount), for [lunch](user_time)
+    - i'm [nicola]{"entity": "user_name", "value": "Nicola"}, i live in [piazza centa](user_address) [10](pizza_amount)
+    - my address is [viale](user_address) [verona](pizza_type) [4](pizza_amount)
+    - [franco](user_name)
+    - my address is [via san severino](user_address) [14](pizza_amount)
+- intent: chitchat
+  examples: |
+    - help
+- intent: faq
+  examples: |
+    - how do i pay?
+- intent: nlu_fallback
+  examples: |
+    - wedding [cake](cake)
+    - gin
+- synonym: Kevin
+  examples: |
+    - kevin
+- synonym: Margherita
+  examples: |
+    - margherita
+- synonym: Gamberetti
+  examples: |
+    - gamberetti
+- synonym: Nicola
+  examples: |
+    - nicola
+- synonym: Mauro
+  examples: |
+    - mauro
+- synonym: Via Milano
+  examples: |
+    - via milano

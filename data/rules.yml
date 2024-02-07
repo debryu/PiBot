@@ -1,0 +1,203 @@
+version: "3.1"
+
+rules:
+
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: action_count_failures
+
+
+- rule: greet the user
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+
+- rule: ask why you need the info
+  steps:
+  - intent: ask_worried_about_data
+  - action: action_explain_why_need_info
+
+- rule: ask for the offered utter_list_services
+  steps:
+  - intent: ask_offered_services
+  - action: utter_list_services
+
+- rule: entering pizza_order_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- rule: entering pizza_order_form from question
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_generic_order
+  - action: utter_explain
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- rule: ask for exit form
+  condition:
+  - active_loop: pizza_order_form
+  steps:
+  - intent: exit
+  - action: utter_ask_exit_confirmation
+  - action: confirmation_form
+  - active_loop: confirmation_form
+  
+- rule: exit form
+  condition:
+  - active_loop: confirmation_form
+  steps:
+  - intent: affermative
+  - action: action_reset_everything
+  - action: action_deactivate_loop
+  - active_loop: null
+
+
+- rule: re-entering pizza_order_form
+  condition:
+  - active_loop: confirmation_form
+  steps:
+  - intent: negative
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- rule: force into form when provide pizza order
+  condition:
+  - active_loop: null
+  steps:
+  - intent: provide_detailed_pizza_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- rule: Confirm order
+  condition:
+  - active_loop: pizza_order_form
+  steps:
+  - action: pizza_order_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_confirm_order
+
+- rule: Edit order
+  steps:
+  - action: action_confirm_order
+  - intent: negative  
+  - action: action_reset_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- rule: Agree order
+  steps:
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - action: action_continue_order
+
+- rule: Finish order
+  condition:
+  - active_loop: null
+  steps: 
+  - action: action_continue_order
+  - intent: negative
+  - action: action_finish_order
+  - active_loop: finish_order_form
+
+- rule: Exiting Order form
+  condition:
+  - active_loop: finish_order_form
+  steps:
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+
+
+- rule: complete order and bye user
+  condition: 
+  - active_loop: null
+  steps:
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+
+- rule: the order info needs to be changed
+  condition: 
+  - active_loop: null
+  steps:
+  - action: action_order_preview
+  - intent: negative
+  - action: utter_change_order_or_info
+
+- rule: change the order
+  steps:
+  - intent: change_order_or_info
+  - action: action_edit_anything
+  - action: action_order_preview
+
+- rule: restart the bot
+  steps:
+  - intent: restart_the_bot
+  - action: utter_restart_the_bot
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_reset_everything
+
+
+- rule: enter the party form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: order_party
+  - action: utter_start_party_setup_form
+  - action: party_setup_form
+  - active_loop: party_setup_form
+
+- rule: ask banned ingredient
+  condition:
+  - active_loop: party_setup_form
+  steps:
+  - action: party_setup_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_confirm_party_setup
+  - intent: affermative
+  - action: utter_ask_banned_ingredients
+
+- rule: provide banned ingredient
+  steps:
+  - intent: provide_banned_ingredients
+  - action: action_ask_banned_ingredients
+
+- rule: confirm party order
+  steps:
+  - action: action_ask_banned_ingredients
+  - intent: affermative
+  - action: utter_confirm_party_order
+  - action: action_reset_everything
+
+- rule: the party setup needs to be corrected
+  steps:
+  - action: action_ask_banned_ingredients
+  - intent: negative
+  - action: utter_ask_banned_ingredients
+
+- rule: user asks when to pay
+  steps:
+  - intent: user_asks_when_payment
+  - action: action_user_asks_when_payment
+
+
+
+
+

@@ -1,0 +1,2278 @@
+version: "3.1"
+
+stories:
+
+- story: ask calories
+  steps:
+  - intent: ask_calories
+  - action: action_calories
+
+- story: respond to FAQs
+  steps:
+  - intent: faq
+  - action: utter_faq
+  
+- story: respond to chitchat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat
+
+- story: ask services
+  steps:
+  - intent: ask_offered_services
+  - action: utter_list_services
+
+- story: Pizza menu asking
+  steps:
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  
+- story: Pizza fish menu asking
+  steps:
+  - intent: ask_menu_fish
+  - action: action_utter_fish_pizzas
+
+- story: Pizza meat menu asking
+  steps:
+  - intent: ask_menu_meat
+  - action: action_utter_meat_pizzas
+
+- story: Pizza vegetarian menu asking
+  steps:
+  - intent: ask_menu_vegetarian
+  - action: action_utter_vegetarian_pizzas
+
+- story: Pizza home specialty menu asking
+  steps:
+  - intent: ask_menu_home_specialty
+  - action: action_utter_menu_home_specialty
+
+- story: Ask for list of cakes
+  steps:
+  - intent: ask_available_cakes
+  - action: action_utter_cake_options
+
+- story: Ask for list of drinks
+  steps:
+  - intent: ask_available_drinks
+  - action: action_utter_drink_options
+
+
+- story: Straight-ordering
+  steps: 
+  - intent: provide_detailed_pizza_order
+  - active_loop: pizza_order_form
+  - action: pizza_order_form
+
+- story: Straight-ordering 2
+  steps:
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount
+    - pizza_size
+    - pizza_type
+  - slot_was_set:
+    - pizza_type
+  - slot_was_set:
+    - pizza_amount
+  - slot_was_set:
+    - pizza_size
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- story: Continue ordering
+  steps:
+  - action: action_continue_order
+  - intent: affermative
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+
+- story: Ask pizza prices
+  steps:
+  - intent: ask_pizza_price
+  - action: action_ask_pizza_price
+
+- story: basic
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_pizza_price
+    entities:
+    - pizza_type: diavola
+  - action: action_ask_pizza_price
+  - slot_was_set:
+    - pizza_amount: null
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: diavola
+  - slot_was_set:
+    - pizza_type: diavola
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: diavola
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal diavola
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: affermative
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+    - pizza_type: margheritas
+  - slot_was_set:
+    - pizza_type: margheritas
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal diavola
+      - 2 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: affermative
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_vegetarian
+  - action: action_utter_vegetarian_pizzas
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: maxi
+    - pizza_type: marinara
+  - slot_was_set:
+    - pizza_type: marinara
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: marinara
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: one
+  - slot_was_set:
+    - pizza_amount: one
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal diavola
+      - 2 normal margherita
+      - 1 maxi marinara
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - pizza_amount: '1'
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal diavola
+      - 2 normal margherita
+      - 1 maxi marinara
+      - 1 normal prosciutto
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: Nicola
+    - user_address: via verdi
+    - pizza_amount: '12'
+    - user_time: lunch
+  - slot_was_set:
+    - pizza_amount: '12'
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_address: via verdi
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_address: via verdi
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: asking payment at the end
+  steps:
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_home_specialty
+  - action: action_utter_menu_home_specialty
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: radicchio
+  - slot_was_set:
+    - pizza_type: radicchio
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: radicchiosa
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: ask_pizza_price
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: ask_pizza_price
+    entities:
+    - pizza_type: Margherita
+  - action: action_ask_pizza_price
+  - slot_was_set:
+    - pizza_type: null
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_name: Nicola
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via del dos 
+    - pizza_amount: '100'
+  - slot_was_set:
+    - pizza_amount: '100'
+  - slot_was_set:
+    - user_address: via del dos
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: via del dos
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: lunch
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: faq
+  - action: utter_faq
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: system initiative flow
+  steps:
+  - intent: ask_generic_order
+  - action: utter_explain
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: three
+  - slot_was_set:
+    - pizza_amount: three
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '3'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 3 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: affermative
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: tonno
+  - slot_was_set:
+    - pizza_type: tonno
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: tonno
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: maxi
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 3 normal margherita
+      - 2 maxi tonno
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: one
+    - pizza_type: prosciutto
+    - pizza_size: classic
+    - pizza_amount: one
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_amount: one
+  - slot_was_set:
+    - pizza_size: classic
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - pizza_size: classic
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 3 normal margherita
+      - 2 maxi tonno
+      - 1 classic prosciutto
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: enrico
+  - slot_was_set:
+    - user_name: enrico
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: enrico
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via dos
+    - pizza_amount: '100'
+  - slot_was_set:
+    - pizza_amount: '100'
+  - slot_was_set:
+    - user_address: via dos
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: via dos
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: dinner
+  - slot_was_set:
+    - user_time: dinner
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: dinner
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: swapping order and asking price
+  steps:
+  - intent: ask_menu_home_specialty
+  - action: action_utter_menu_home_specialty
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: radicchiosa
+  - slot_was_set:
+    - pizza_type: radicchiosa
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - pizza_type: radicchiosa
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: ask_pizza_price
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: ask_pizza_price
+    entities:
+    - pizza_type: Margherita
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: classic
+  - slot_was_set:
+    - pizza_size: classic
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: classic
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 classic margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: ask_worried_about_data
+    entities:
+    - focus: name
+  - action: action_explain_why_need_info
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: welcome_greet
+    entities:
+    - user_name: Kevin
+  - slot_was_set:
+    - user_name: Kevin
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Kevin
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via san bartolomeo
+    - pizza_amount: '13'
+  - slot_was_set:
+    - pizza_amount: '13'
+  - slot_was_set:
+    - user_address: via san bartolomeo
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: dinner
+  - slot_was_set:
+    - user_time: dinner
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: dinner
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: interactive_story_1
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: Gamberetti
+  - slot_was_set:
+    - pizza_type: Gamberetti
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: gamberetti
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: maxi
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 maxi gamberetti
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+
+- story: interactive_story_2
+  steps:
+  - intent: ask_generic_order
+  - action: utter_explain
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_vegetarian
+  - action: action_utter_vegetarian_pizzas
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_pizza_price
+    entities:
+    - pizza_type: Margherita
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: one
+    - pizza_type: marghertia
+  - slot_was_set:
+    - pizza_type: marghertia
+  - slot_was_set:
+    - pizza_amount: one
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: one
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_amount: one
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 1 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: Nicola
+    - user_address: piazza centa
+    - pizza_amount: '10'
+  - slot_was_set:
+    - pizza_amount: '10'
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_address: piazza centa
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_address: piazza centa
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: lunch
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+
+- story: interactive_story_3
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: speck
+  - slot_was_set:
+    - pizza_type: speck
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: speck
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: ask_pizza_price
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal speck
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: Nicola
+  - slot_was_set:
+    - user_name: Nicola
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Nicola
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: ask_worried_about_data
+    entities:
+    - focus: address
+  - action: action_explain_why_need_info
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: viale
+    - pizza_type: verona
+    - pizza_amount: '4'
+  - slot_was_set:
+    - pizza_type: verona
+  - slot_was_set:
+    - pizza_amount: '4'
+  - slot_was_set:
+    - user_address: viale
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: viale
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: lunch
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: utter_change_order_or_info
+  - intent: change_order_or_info
+    entities:
+    - focus: name
+    - user_name: erika
+  - slot_was_set:
+    - user_name: erika
+  - action: action_edit_anything
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: interactive_story_4
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_fish
+  - action: action_utter_fish_pizzas
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+    - pizza_type: Gamberetti
+  - slot_was_set:
+    - pizza_type: Gamberetti
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: gamberetti
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal gamberetti
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: franco
+  - slot_was_set:
+    - user_name: franco
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: franco
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via san
+    - pizza_amount: '14'
+  - slot_was_set:
+    - pizza_amount: '14'
+  - slot_was_set:
+    - user_address: via san
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: via san
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: dinner
+  - slot_was_set:
+    - user_time: dinner
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: dinner
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: interactive_story_5
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: prosciutto
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: '5'
+  - slot_was_set:
+    - pizza_amount: '5'
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '5'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 5 normal prosciutto
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: alessandro
+  - slot_was_set:
+    - user_name: alessandro
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: alessandro
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via manci
+    - pizza_amount: '3'
+  - slot_was_set:
+    - pizza_amount: '3'
+  - slot_was_set:
+    - user_address: via manci
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: via manci
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: dinner
+  - slot_was_set:
+    - user_time: dinner
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: dinner
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: interactive_story_6
+  steps:
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: '2'
+    - pizza_size: normal
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: elisa
+    - user_address: via verdi
+    - pizza_amount: '2'
+    - user_time: lunch
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - user_name: elisa
+  - slot_was_set:
+    - user_address: via verdi
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: elisa
+  - slot_was_set:
+    - user_address: via verdi
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: faq
+  - action: utter_faq
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: asking to restart
+  steps:
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_pizza_price
+  - action: action_ask_pizza_price
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_type: Margherita
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: margherita
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: normal
+  - slot_was_set:
+    - pizza_size: normal
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: normal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 normal margherita
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: chitchat
+  - action: utter_chitchat
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: restart_the_bot
+  - action: utter_restart_the_bot
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: asking for payment at the end
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_type: boscaiola
+  - slot_was_set:
+    - pizza_type: boscaiola
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: boscaiola
+  - slot_was_set:
+    - requested_slot: pizza_amount
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_size: maxi
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 maxi boscaiola
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: ask_worried_about_data
+    entities:
+    - focus: name
+  - action: action_explain_why_need_info
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: elena
+  - slot_was_set:
+    - user_name: elena
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: elena
+  - slot_was_set:
+    - requested_slot: user_address
+  - intent: provide_personal_info
+    entities:
+    - user_address: via verdi
+    - pizza_amount: '1'
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - user_address: via verdi
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: via verdi
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: lunch
+  - slot_was_set:
+    - user_time: lunch
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: lunch
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: faq
+  - action: utter_faq
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+
+- story: interactive_story_7
+  steps:
+  - intent: order_party
+  - action: utter_start_party_setup_form
+  - action: party_setup_form
+  - active_loop: party_setup_form
+  - slot_was_set:
+    - requested_slot: number_of_people
+  - intent: provide_party_info
+    entities:
+    - pizza_amount: '24'
+    - human_target: children
+  - slot_was_set:
+    - human_target: children
+  - slot_was_set:
+    - number_of_people: '24'
+  - action: party_setup_form
+  - slot_was_set:
+    - number_of_people: '24'
+  - slot_was_set:
+    - pizza_amount: '24'
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - cake: tiramisu
+  - slot_was_set:
+    - cake: tiramisu
+  - action: party_setup_form
+  - slot_was_set:
+    - cake: tiramisù
+  - slot_was_set:
+    - requested_slot: drinks
+  - intent: provide_party_info
+    entities:
+    - drinks: coke
+  - slot_was_set:
+    - drinks: coke
+  - action: party_setup_form
+  - slot_was_set:
+    - drinks: coca cola
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_party_setup
+  - intent: affermative
+  - action: utter_ask_banned_ingredients
+  - intent: provide_banned_ingredients
+    entities:
+    - banned_ingredients: onions
+    - banned_ingredients: olives
+    - banned_ingredients: tuna
+  - action: action_ask_banned_ingredients
+  - slot_was_set:
+    - banned_ingredients:
+      - onions
+      - olives
+      - tuna
+  - intent: affermative
+  - action: utter_confirm_party_order
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+  - slot_was_set:
+    - failures: null
+  - slot_was_set:
+    - human: null
+  - slot_was_set:
+    - human_target: null
+  - slot_was_set:
+    - banned_ingredients: null
+  - slot_was_set:
+    - number_of_people: null
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - drinks: null
+
+- story: interactive_story_8
+  steps:
+  - intent: order_party
+  - action: utter_start_party_setup_form
+  - action: party_setup_form
+  - active_loop: party_setup_form
+  - slot_was_set:
+    - requested_slot: number_of_people
+  - intent: provide_party_info
+    entities:
+    - pizza_amount: '12'
+    - human_target: people
+  - slot_was_set:
+    - human_target: people
+  - slot_was_set:
+    - number_of_people: '12'
+  - action: party_setup_form
+  - slot_was_set:
+    - number_of_people: '12'
+  - slot_was_set:
+    - pizza_amount: '12'
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - cake: apple pie
+  - slot_was_set:
+    - cake: apple pie
+  - action: party_setup_form
+  - slot_was_set:
+    - cake: apple pie
+  - slot_was_set:
+    - requested_slot: drinks
+  - intent: provide_party_info
+    entities:
+    - drinks: sprite
+  - slot_was_set:
+    - drinks: sprite
+  - action: party_setup_form
+  - slot_was_set:
+    - drinks: sprite
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_party_setup
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_correct_party_setup
+  - slot_was_set:
+    - number_of_people: null
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - drinks: null
+  - action: party_setup_form
+  - active_loop: party_setup_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: number_of_people
+  - intent: provide_party_info
+    entities:
+    - pizza_amount: '15'
+    - human_target: people
+  - slot_was_set:
+    - human_target: people
+  - slot_was_set:
+    - number_of_people: '15'
+  - action: party_setup_form
+  - slot_was_set:
+    - number_of_people: '15'
+  - slot_was_set:
+    - pizza_amount: '15'
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - cake: cheesecake
+  - slot_was_set:
+    - cake: cheesecake
+  - action: party_setup_form
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - drinks: pepsi
+  - slot_was_set:
+    - drinks: pepsi
+  - action: party_setup_form
+  - slot_was_set:
+    - drinks: pepsi
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - cake: cheescake
+  - slot_was_set:
+    - cake: cheescake
+  - action: party_setup_form
+  - slot_was_set:
+    - cake: cheescake
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_party_setup
+  - intent: affermative
+  - action: utter_ask_banned_ingredients
+  - intent: provide_banned_ingredients
+    entities:
+    - banned_ingredients: olives
+  - action: action_ask_banned_ingredients
+  - slot_was_set:
+    - banned_ingredients:
+      - olives
+  - intent: affermative
+  - action: utter_confirm_party_order
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+  - slot_was_set:
+    - failures: null
+  - slot_was_set:
+    - human: null
+  - slot_was_set:
+    - human_target: null
+  - slot_was_set:
+    - banned_ingredients: null
+  - slot_was_set:
+    - number_of_people: null
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - drinks: null
+
+- story: interactive_story_9
+  steps:
+  - intent: order_party
+  - action: utter_start_party_setup_form
+  - action: party_setup_form
+  - active_loop: party_setup_form
+  - slot_was_set:
+    - requested_slot: number_of_people
+  - intent: provide_party_info
+    entities:
+    - pizza_amount: '16'
+    - human_target: children
+  - slot_was_set:
+    - human_target: children
+  - slot_was_set:
+    - number_of_people: '16'
+  - action: party_setup_form
+  - slot_was_set:
+    - number_of_people: '16'
+  - slot_was_set:
+    - pizza_amount: '16'
+  - slot_was_set:
+    - requested_slot: cake
+  - intent: provide_party_info
+    entities:
+    - cake: cheesecake
+  - slot_was_set:
+    - cake: cheesecake
+  - action: party_setup_form
+  - slot_was_set:
+    - cake: cheesecake
+  - slot_was_set:
+    - requested_slot: drinks
+  - intent: provide_party_info
+    entities:
+    - drinks: coke
+  - slot_was_set:
+    - drinks: coke
+  - action: party_setup_form
+  - slot_was_set:
+    - drinks: coca cola
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_party_setup
+  - intent: negative
+    entities:
+    - drinks: pepsi
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - drinks: pepsi
+  - action: action_correct_party_setup
+  - action: action_confirm_party_setup
+  - intent: affermative
+  - action: utter_ask_banned_ingredients
+  - intent: provide_banned_ingredients
+    entities:
+    - banned_ingredients: olives
+  - action: action_ask_banned_ingredients
+  - slot_was_set:
+    - banned_ingredients:
+      - olives
+  - intent: affermative
+  - action: utter_confirm_party_order
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+  - slot_was_set:
+    - failures: null
+  - slot_was_set:
+    - human: null
+  - slot_was_set:
+    - human_target: null
+  - slot_was_set:
+    - banned_ingredients: null
+  - slot_was_set:
+    - number_of_people: null
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - drinks: null
+
+- story: interactive_story_10
+  steps:
+  - intent: welcome_greet
+  - action: utter_welcome_greet
+  - intent: demand_generic_order
+  - action: utter_intro_to_order
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: ask_menu_pizza
+  - action: action_utter_menu_pizza
+  - action: pizza_order_form
+  - slot_was_set:
+    - requested_slot: pizza_type
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_amount: two
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - requested_slot: pizza_size
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: one
+    - pizza_size: normal
+    - pizza_amount: one
+    - pizza_size: maxi
+  - slot_was_set:
+    - pizza_amount: one
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - slot_was_set:
+    - pizza_amount: '1'
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: provide_detailed_pizza_order
+    entities:
+    - pizza_amount: two
+    - pizza_size: maxi
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_amount: two
+  - slot_was_set:
+    - pizza_size: maxi
+  - action: pizza_order_form
+  - active_loop: pizza_order_form
+  - slot_was_set:
+    - pizza_type: funghi
+  - slot_was_set:
+    - pizza_amount: '2'
+  - slot_was_set:
+    - pizza_size: maxi
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_confirm_order
+  - intent: affermative
+  - action: action_pizza_order_add
+  - slot_was_set:
+    - order_pizza_list:
+      - 2 maxi funghi
+  - action: action_continue_order
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: action_finish_order
+  - action: finish_order_form
+  - active_loop: finish_order_form
+  - slot_was_set:
+    - response: negative
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: ask_worried_about_data
+    entities:
+    - focus: name
+  - action: action_explain_why_need_info
+  - action: finish_order_form
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_address: francesco
+  - slot_was_set:
+    - user_address: francesco
+  - action: finish_order_form
+  - slot_was_set:
+    - user_address: francesco
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: provide_personal_info
+    entities:
+    - user_name: Giovanni
+  - slot_was_set:
+    - user_name: Giovanni
+  - action: finish_order_form
+  - slot_was_set:
+    - user_name: Giovanni
+  - slot_was_set:
+    - requested_slot: user_time
+  - intent: provide_personal_info
+    entities:
+    - user_time: dinner
+  - slot_was_set:
+    - user_time: dinner
+  - action: finish_order_form
+  - slot_was_set:
+    - user_time: dinner
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_order_preview
+  - intent: negative
+  - slot_was_set:
+    - response: negative
+  - action: utter_change_order_or_info
+  - intent: provide_personal_info
+    entities:
+    - user_address: Via Roma
+    - pizza_amount: '15'
+  - slot_was_set:
+    - pizza_amount: '15'
+  - slot_was_set:
+    - user_address: Via Roma
+  - action: action_edit_anything
+  - action: action_order_preview
+  - intent: affermative
+  - action: utter_goodbye
+  - action: action_reset_everything
+  - slot_was_set:
+    - pizza_type: null
+  - slot_was_set:
+    - pizza_size: null
+  - slot_was_set:
+    - pizza_amount: null
+  - slot_was_set:
+    - order_pizza_list: null
+  - slot_was_set:
+    - user_name: null
+  - slot_was_set:
+    - user_address: null
+  - slot_was_set:
+    - user_time: null
+  - slot_was_set:
+    - response: null
+  - slot_was_set:
+    - failures: null
+  - slot_was_set:
+    - human: null
+  - slot_was_set:
+    - human_target: null
+  - slot_was_set:
+    - banned_ingredients: null
+  - slot_was_set:
+    - number_of_people: null
+  - slot_was_set:
+    - cake: null
+  - slot_was_set:
+    - drinks: null
+

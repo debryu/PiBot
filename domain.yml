@@ -1,0 +1,323 @@
+version: '3.1'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+policies:
+- name: TEDPolicy
+  priority: 4
+  max_history: 6
+  epochs: 200
+- name: UnexpecTEDIntentPolicy
+  epochs: 20
+- name: MemoizationPolicy
+  priority: 3
+  max_history: 4
+intents:
+- ask_calories
+- affermative
+- ask_available_cakes
+- ask_available_drinks
+- ask_generic_order
+- ask_menu_fish
+- ask_menu_home_specialty
+- ask_menu_meat
+- ask_menu_pizza
+- ask_menu_vegetarian
+- ask_offered_services
+- ask_pizza_price
+- ask_worried_about_data
+- change_order_or_info
+- chitchat:
+    used_entities:
+    - banned_ingredients
+    - cake
+    - drinks
+    - focus
+    - human_target
+    - name
+    - pizza_amount
+    - pizza_size
+    - pizza_slices
+    - pizza_type
+    - response
+    - user_address
+    - user_name
+    - user_time
+    is_retrieval_intent: true
+- demand_generic_order
+- exit
+- faq:
+    used_entities:
+    - banned_ingredients
+    - cake
+    - drinks
+    - focus
+    - human_target
+    - name
+    - pizza_amount
+    - pizza_size
+    - pizza_slices
+    - pizza_type
+    - response
+    - user_address
+    - user_name
+    - user_time
+    is_retrieval_intent: true
+- negative
+- nlu_fallback
+- order_party
+- provide_banned_ingredients
+- provide_detailed_pizza_order
+- provide_party_info
+- provide_personal_info
+- restart_the_bot
+- welcome_greet
+- user_asks_when_payment
+entities:
+- pizza_amount
+- banned_ingredients
+- drinks
+- cake
+- human_target
+- user_time
+- user_address
+- pizza_size
+- user_name
+- pizza_type
+- focus
+- name
+- response
+- pizza_slices
+slots:
+  human:
+    type: any
+    mappings:
+    - type: custom
+  human_target:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: human_target
+  failures:
+    type: any
+    mappings:
+    - type: custom
+  order_pizza_list:
+    type: list
+    mappings:
+    - type: custom
+  response:
+    type: text
+    mappings:
+    - type: from_intent
+      value: negative
+      intent: negative
+  pizza_type:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: pizza_type
+      not_intent: ask_pizza_price
+  pizza_amount:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: pizza_amount
+      not_intent:
+      - ask_pizza_price
+      - provide_party_info
+  pizza_size:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: pizza_size
+  user_name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: user_name
+  user_address:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: user_address
+  user_time:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: user_time
+  number_of_people:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: pizza_amount
+      not_intent:
+      - ask_pizza_price
+      - provide_detailed_pizza_order
+      - provide_personal_info
+      - change_order_or_info
+  drinks:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: drinks
+      not_intent:
+      - ask_pizza_price
+      - provide_detailed_pizza_order
+      - provide_personal_info
+  cake:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: cake
+      not_intent:
+      - ask_pizza_price
+      - provide_detailed_pizza_order
+      - provide_personal_info
+  banned_ingredients:
+    type: any
+    mappings:
+    - type: custom
+responses:
+  utter_restart_the_bot:
+  - text: Restarting...
+  utter_chitchat/ask_name:
+  - text: My name is PiBot, your true and only Pizza Bot!
+  utter_chitchat/help:
+  - text: No worries I am here to help you! You can say "RESTART" to start over if you are stuck. You can say "ORDER A PIZZA" to start an order. If you want to order many different pizza, do it one at a time (but you can order multiple of the same kind in one step). You can also say "MENU" to see the menu. Or say "ORGANIZE A PARTY" to start a party setup to reserve a room in our restaurant.
+  utter_chitchat/ask_discount:
+  - text: Well, let's see what I can do for you... Try ordering a pizza with the name of something that begins with an "E" and only contains one letter.
+  utter_chitchat/ask_howdoing:
+  - text: I am doing great, thank you for asking. Now, let's get back to business.
+  utter_chitchat/out_of_scope:
+  - text: There is a time and place for everything, but not now!
+  utter_faq/party_price:
+  - text: "The price for a party is 15€ per person all included. If you don't want to include drinks and/or cake, the price will be -2€ per missing item, so if you just want pizza slices the price is 11€ per person."
+  utter_faq/staff:
+  - text: We have a very friendly staff, you can find them in the restaurant. It is not my place to tell you where they are.
+  utter_faq/ingredients:
+  - text: Our pizza are made with the best ingredients. But we can't tell you what they are, it is a secret recipe! Please note that they are not vegan nor gluten free. But we have available vegetarian, fish and meat pizzas.
+  utter_faq/vegan:
+  - text: We have vegetarian pizzas, but not vegan since they may contain traces of animal products.
+  utter_faq/gluten_free:
+  - text: Our pizza are not gluten free. But we have vegetarian, fish and meat pizzas.
+  utter_faq/name_question:
+  - text: I only need your first name, it is enough for identifying your order.
+  utter_faq/more_pizza_order:
+  - text: Don't worry, you can order as many pizzas as you want. Just one at a time, so for now focus on the current one.
+  utter_faq/how_party_works:
+  - text: You can reserve a room in our restaurant for your party. There you will receive random pizza slices (you will have to give us the exact number of guests). You can choose the cake and the drink you want. You can also specify if you have any allergies or if you want to exclude some ingredients from the pizza slices.
+  utter_faq/ask_beverage:
+  - text: Beverages are not included in the pizza order. But you can have them if you do a party reservation. You can choose the drink you want in the party setup.
+  utter_intro_to_order:
+  - text: Right to the point, I like it. You can start ordering your pizza, one at a time...
+  utter_explain:
+  - text: Sure, I can get you a pizza. Let's start with the first pizza you want to order!
+  utter_welcome_greet:
+  - text: Hello There! I am your PizzaBot assistant. How can I help you?
+  utter_ask_pizza_type:
+  - text: What pizza would you like to order?
+  utter_ask_pizza_amount:
+  - text: How many {pizza_type}?
+  utter_ask_pizza_size:
+  - text: Do you want a normal pizza or a maxi?
+  utter_ask_user_name:
+  - text: What is your name?
+  utter_ask_user_address:
+  - text: What is your home address?
+  utter_ask_user_time:
+  - text: We can deliver only for lunch (13:30) or dinner (20:30). When do you want the delivery?
+  utter_ask_human:
+  - text: Please wait, the human is not here yet.
+  utter_ask_exit_confirmation:
+  - text: Are you really sure you don't want to proceed with the current order?
+  utter_confirmation:
+  - text: Got it.
+  utter_list_services:
+  - text: You can either order pizza or reserve a room and plan your party in our restaurant.
+  utter_change_order_or_info:
+  - text: What do you want to use instead of one of your personal information such as name, address, time?
+  utter_goodbye:
+  - text: Thank you for your order {user_name}, it has been taken care... We hope you will enjoy the food.
+  utter_explain_why_need_info:
+  - text: I need to know you to help. Don't worry, I will not share your data with anyone.
+  utter_default:
+  - text: Sorry I didn't get that. Can you rephrase?
+  utter_start_party_setup_form:
+  - text: Let's start with the party setup. You will receive pizza slices as default, but you can choose to have different extras.
+  utter_ask_number_of_people:
+  - text: How many people are you expecting? Please specify "people" or "children" in the answer.
+  utter_ask_cake:
+  - text: What cake do you want in your order?
+  utter_ask_drinks:
+  - text: And what drink do you desire?
+  utter_ask_banned_ingredients:
+  - text: Do you have any ingredients you are allergic to or you don't want in your pizza slices? Please list them...
+  utter_confirm_party_order:
+  - text: Your party setup is confirmed. Thank you and have fun!
+actions:
+- action_confirm_party_setup
+- action_ask_banned_ingredients
+- utter_start_party_setup_form
+- action_correct_party_setup
+- utter_confirm_party_order
+- utter_ask_banned_ingredients
+- action_reset_everything
+- action_count_failures
+- utter_welcome_greet
+- utter_intro_to_order
+- action_finish_order
+- action_confirm_order
+- action_continue_order
+- action_order_preview
+- action_user_asks_when_payment
+- utter_goodbye
+- action_utter_fish_pizzas
+- action_utter_cake_options
+- action_utter_drink_options
+- action_pizza_order_add
+- action_ask_pizza_price
+- action_utter_menu_home_specialty
+- action_explain_why_need_info
+- utter_ask_human
+- action_utter_menu_pizza
+- utter_chitchat
+- action_utter_meat_pizzas
+- utter_restart_the_bot
+- utter_list_services
+- action_utter_vegetarian_pizzas
+- utter_explain
+- action_reset_order
+- utter_change_order_or_info
+- action_edit_anything
+- utter_ask_user_name
+- action_handle_form_exit
+- action_utter_explain
+- action_calories
+- utter_ask_exit_confirmation
+- validate_pizza_order_form
+- validate_finish_order_form
+- validate_party_setup_form
+- utter_faq
+forms:
+  pizza_order_form:
+    required_slots:
+    - pizza_type
+    - pizza_amount
+    - pizza_size
+  confirmation_form:
+    required_slots:
+    - response
+  finish_order_form:
+    required_slots:
+    - user_name
+    - user_address
+    - user_time
+  wait_for_human_form:
+    required_slots:
+    - human
+  party_setup_form:
+    required_slots:
+    - number_of_people
+    - cake
+    - drinks

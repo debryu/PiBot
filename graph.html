@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rasa Core Visualisation</title>
+    <script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+    <script src="https://dagrejs.github.io/project/dagre/latest/dagre.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://dagrejs.github.io/project/graphlib-dot/v0.6.3/graphlib-dot.js"></script>
+</head>
+<body>
+<div id="errormsg" style="color: #b00"></div>
+<svg>
+    <style id="graph-style">
+        .node.invisible > rect {
+            display: none;
+        }
+
+        .node.start > rect {
+            fill: #7f7;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node.end > rect {
+            fill: #f77;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node:not(.active) > rect, .node:not(.active) > .label {
+            opacity: 0.4;
+        }
+
+        .edgePath:not(.active) path {
+            opacity: 0.4;
+        }
+
+        .node.ellipsis > rect {
+            fill: #CCC;
+        }
+
+        .node.intent > rect {
+            fill: #7ff;
+        }
+
+        .node.dashed > rect {
+            stroke-dasharray: 5;
+        }
+
+        text {
+            font-weight: 300;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serf, serif;
+            font-size: 14px;
+            color: #1f1d1d;
+        }
+
+        .node rect {
+            stroke: #444;
+            fill: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .edgePath path {
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            height: 100%;
+            width: 100%
+        }
+    </style>
+    <g></g>
+</svg>
+<script>
+
+  function serveGraph() {
+    let oldInputGraphValue;
+
+    const url = 'visualization.dot';
+    const refreshInterval = 500;
+
+    // trigger a refresh by fetching an updated graph
+    setInterval(function () {
+      fetch(url).then(r => r.text()).then(dot => {
+        document.getElementById('errormsg').innerHTML = '';
+        if (oldInputGraphValue === dot) return;
+
+        oldInputGraphValue = dot;
+        drawGraph(dot);
+      }).catch(err => {
+        document.getElementById('errormsg').innerHTML =
+          'Failed to update plot. (' + err.message + ')';
+      });
+    }, refreshInterval);
+  }
+
+  function drawGraph(graph) {
+    let g = graphlibDot.read(graph);
+    // Set margins, if not present
+    if (!g.graph().hasOwnProperty("marginx") &&
+      !g.graph().hasOwnProperty("marginy")) {
+      g.graph().marginx = 20;
+      g.graph().marginy = 20;
+    }
+    g.graph().transition = function (selection) {
+      return selection.transition().duration(300);
+    };
+    // Render the graph into svg g
+    d3.select("svg g").call(render, g);
+  }
+  // Set up zoom support
+  const svg = d3.select("svg"),
+    inner = d3.select("svg g"),
+    zoom = d3.zoom().on("zoom", function () {
+      inner.attr("transform", d3.event.transform);
+    });
+  svg.call(zoom);
+
+  // Create and configure the renderer
+  const render = dagreD3.render();
+
+  let isClient = false;
+  isClient = true;
+
+  if (isClient) {
+    // Mark all nodes and their edges as active
+    cssRules = document.getElementById('graph-style').sheet.cssRules;
+    cssRules[3].style.opacity = 1;
+    cssRules[4].style.opacity = 1;
+
+    let graph;
+    graph = `digraph  {
+0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
+"-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
+1 [class="", fontsize=12, label=action_calories];
+2 [class="", fontsize=12, label=utter_faq];
+3 [class="", fontsize=12, label=utter_chitchat];
+4 [class="", fontsize=12, label=utter_list_services];
+5 [class="", fontsize=12, label=action_utter_menu_pizza];
+6 [class="", fontsize=12, label=action_utter_fish_pizzas];
+7 [class="", fontsize=12, label=action_utter_meat_pizzas];
+8 [class="", fontsize=12, label=action_utter_vegetarian_pizzas];
+9 [class="", fontsize=12, label=action_utter_menu_home_specialty];
+10 [class="", fontsize=12, label=action_utter_cake_options];
+11 [class="", fontsize=12, label=action_utter_drink_options];
+12 [class="", fontsize=12, label=pizza_order_form];
+14 [class="", fontsize=12, label=action_continue_order];
+16 [class="", fontsize=12, label=action_ask_pizza_price];
+18 [class="", fontsize=12, label=pizza_order_form];
+21 [class="", fontsize=12, label=action_confirm_order];
+22 [class="", fontsize=12, label=action_pizza_order_add];
+28 [class="", fontsize=12, label=action_continue_order];
+29 [class="", fontsize=12, label=action_finish_order];
+30 [class="", fontsize=12, label=finish_order_form];
+32 [class="", fontsize=12, label=action_order_preview];
+33 [class="", fontsize=12, label=utter_goodbye];
+34 [class="", fontsize=12, label=action_reset_everything];
+35 [class="", fontsize=12, label=pizza_order_form];
+36 [class="", fontsize=12, label=action_ask_pizza_price];
+52 [class="", fontsize=12, label=action_order_preview];
+53 [class="", fontsize=12, label=utter_faq];
+87 [class="", fontsize=12, label=finish_order_form];
+88 [class="", fontsize=12, label=action_explain_why_need_info];
+89 [class="", fontsize=12, label=finish_order_form];
+95 [class="", fontsize=12, label=utter_welcome_greet];
+96 [class="", fontsize=12, label=utter_intro_to_order];
+97 [class="", fontsize=12, label=pizza_order_form];
+98 [class="", fontsize=12, label=action_utter_menu_pizza];
+106 [class="", fontsize=12, label=utter_explain];
+107 [class="", fontsize=12, label=pizza_order_form];
+108 [class="", fontsize=12, label=action_utter_vegetarian_pizzas];
+134 [class="", fontsize=12, label=finish_order_form];
+138 [class="", fontsize=12, label=finish_order_form];
+139 [class="", fontsize=12, label=action_order_preview];
+140 [class="", fontsize=12, label=utter_change_order_or_info];
+141 [class="", fontsize=12, label=action_edit_anything];
+148 [class="", fontsize=12, label=action_utter_fish_pizzas];
+203 [class="", fontsize=12, label=utter_chitchat];
+204 [class="", fontsize=12, label=finish_order_form];
+205 [class="", fontsize=12, label=utter_restart_the_bot];
+206 [class="", fontsize=12, label=action_deactivate_loop];
+231 [class="", fontsize=12, label=utter_start_party_setup_form];
+232 [class="", fontsize=12, label=party_setup_form];
+236 [class="", fontsize=12, label=action_confirm_party_setup];
+237 [class="", fontsize=12, label=utter_ask_banned_ingredients];
+238 [class="", fontsize=12, label=action_ask_banned_ingredients];
+239 [class="", fontsize=12, label=utter_confirm_party_order];
+244 [class="", fontsize=12, label=action_confirm_party_setup];
+245 [class="", fontsize=12, label=action_correct_party_setup];
+268 [class="", fontsize=12, label=pizza_order_form];
+269 [class="", fontsize=12, label=action_confirm_order];
+287 [class="", fontsize=12, label="..."];
+293 [class="", fontsize=12, label=action_confirm_order];
+294 [class="", fontsize=12, label=action_reset_order];
+301 [class="", fontsize=12, label=action_continue_order];
+302 [class="", fontsize=12, label=action_finish_order];
+311 [class="", fontsize=12, label=action_order_preview];
+312 [class="", fontsize=12, label=utter_change_order_or_info];
+315 [class="", fontsize=12, label=action_order_preview];
+321 [class="", fontsize=12, label=action_count_failures];
+324 [class="", fontsize=12, label=party_setup_form];
+330 [class="", fontsize=12, label=action_ask_banned_ingredients];
+336 [class="", fontsize=12, label=action_ask_banned_ingredients];
+337 [class="", fontsize=12, label=utter_ask_banned_ingredients];
+339 [class="", fontsize=12, label=action_user_asks_when_payment];
+341 [class="", fontsize=12, label=utter_welcome_greet];
+343 [class="", fontsize=12, label=action_explain_why_need_info];
+353 [class="", fontsize=12, label=utter_ask_exit_confirmation];
+354 [class="", fontsize=12, label=confirmation_form];
+356 [class="", fontsize=12, label=action_reset_everything];
+357 [class="", fontsize=12, label=action_deactivate_loop];
+360 [class=intent, fillcolor=lightblue, label="how many calories does tiramisu have?", shape=rect, style=filled];
+361 [class=intent, fillcolor=lightblue, label="What is in the sauce?", shape=rect, style=filled];
+362 [class=intent, fillcolor=lightblue, label="how is your day going?", shape=rect, style=filled];
+363 [class=intent, fillcolor=lightblue, label="How can you help me?", shape=rect, style=filled];
+364 [class=intent, fillcolor=lightblue, label="can you give me options?", shape=rect, style=filled];
+365 [class=intent, fillcolor=lightblue, label="What fish pizza do you have?", shape=rect, style=filled];
+366 [class=intent, fillcolor=lightblue, label="What meat pizza can I eat?", shape=rect, style=filled];
+367 [class=intent, fillcolor=lightblue, label="What vegetarian pizza do you offer?", shape=rect, style=filled];
+368 [class=intent, fillcolor=lightblue, label="What is this restaurant's specialty?", shape=rect, style=filled];
+369 [class=intent, fillcolor=lightblue, label="What cakes can I get?", shape=rect, style=filled];
+370 [class=intent, fillcolor=lightblue, label="What drinks are on the menu?", shape=rect, style=filled];
+371 [class=intent, fillcolor=lightblue, label=twelve, shape=rect, style=filled];
+372 [class=intent, fillcolor=lightblue, label="how much?", shape=rect, style=filled];
+373 [class=intent, fillcolor=lightblue, label="I want four wurstel pizzas.", shape=rect, style=filled];
+374 [class=intent, fillcolor=lightblue, label="Hello There!", shape=rect, style=filled];
+375 [class=intent, fillcolor=lightblue, label="can you order a pizza?", shape=rect, style=filled];
+376 [class=intent, fillcolor=lightblue, label="i want to order a party for my anniversary", shape=rect, style=filled];
+377 [class=intent, fillcolor=lightblue, label=pizza, shape=rect, style=filled];
+378 [class=intent, fillcolor=lightblue, label="i want two diavolas", shape=rect, style=filled];
+379 [class=intent, fillcolor=lightblue, label="43 people", shape=rect, style=filled];
+380 [class=intent, fillcolor=lightblue, label="yes please", shape=rect, style=filled];
+381 [class=intent, fillcolor=lightblue, label="I want a margherita pizza.", shape=rect, style=filled];
+382 [class=intent, fillcolor=lightblue, label="i want a quattro formaggi", shape=rect, style=filled];
+383 [class=intent, fillcolor=lightblue, label=Yeah, shape=rect, style=filled];
+384 [class=intent, fillcolor=lightblue, label="no cake", shape=rect, style=filled];
+385 [class=intent, fillcolor=lightblue, label="via malpighi 21", shape=rect, style=filled];
+386 [class=intent, fillcolor=lightblue, label=francesco, shape=rect, style=filled];
+387 [class=intent, fillcolor=lightblue, label=correct, shape=rect, style=filled];
+388 [class=intent, fillcolor=lightblue, label="how much does it cost?", shape=rect, style=filled];
+389 [class=intent, fillcolor=lightblue, label="What is in the tomato?", shape=rect, style=filled];
+390 [class=intent, fillcolor=lightblue, label="I don't want to give you my address", shape=rect, style=filled];
+391 [class=intent, fillcolor=lightblue, label=giulia, shape=rect, style=filled];
+392 [class=intent, fillcolor=lightblue, label="Do you have any discount?", shape=rect, style=filled];
+393 [class=intent, fillcolor=lightblue, label="Piazza San Marco", shape=rect, style=filled];
+394 [class=intent, fillcolor=lightblue, label="Hi, i'm giacomo.", shape=rect, style=filled];
+395 [class=intent, fillcolor=lightblue, label="Via Donizetti", shape=rect, style=filled];
+396 [class=intent, fillcolor=lightblue, label="Via dei Faggi", shape=rect, style=filled];
+397 [class=intent, fillcolor=lightblue, label="my name is nicola", shape=rect, style=filled];
+398 [class=intent, fillcolor=lightblue, label="I want to order", shape=rect, style=filled];
+399 [class=intent, fillcolor=lightblue, label="I want to see the menu", shape=rect, style=filled];
+400 [class=intent, fillcolor=lightblue, label="What fish food can I order?", shape=rect, style=filled];
+401 [class=intent, fillcolor=lightblue, label="do you have vegetarian pizza?", shape=rect, style=filled];
+402 [class=intent, fillcolor=lightblue, label="I don't want to give you my address", shape=rect, style=filled];
+403 [class=intent, fillcolor=lightblue, label="no i want to change cake", shape=rect, style=filled];
+404 [class=intent, fillcolor=lightblue, label="i want to change address to [via maccani] number 8", shape=rect, style=filled];
+405 [class=intent, fillcolor=lightblue, label="Corso Vittorio Emanuele II", shape=rect, style=filled];
+406 [class=intent, fillcolor=lightblue, label="forget all", shape=rect, style=filled];
+407 [class=intent, fillcolor=lightblue, label="the number of people is 6", shape=rect, style=filled];
+408 [class=intent, fillcolor=lightblue, label=yes, shape=rect, style=filled];
+409 [class=intent, fillcolor=lightblue, label=gluten, shape=rect, style=filled];
+410 [class=intent, fillcolor=lightblue, label=Yeah, shape=rect, style=filled];
+411 [class=intent, fillcolor=lightblue, label="instead of beer i want water", shape=rect, style=filled];
+412 [class=intent, fillcolor=lightblue, label="Then two tonnos", shape=rect, style=filled];
+413 [class=intent, fillcolor=lightblue, label="Prosciutto e funghi.", shape=rect, style=filled];
+414 [class=intent, fillcolor=lightblue, label="no problem", shape=rect, style=filled];
+415 [class=intent, fillcolor=lightblue, label="change name with erika", shape=rect, style=filled];
+416 [class=intent, fillcolor=lightblue, label="can you restart?", shape=rect, style=filled];
+417 [class=intent, fillcolor=lightblue, label="wedding cake", shape=rect, style=filled];
+418 [class=intent, fillcolor=lightblue, label="i want to order a party for my wedding", shape=rect, style=filled];
+419 [class=intent, fillcolor=lightblue, label=peanuts, shape=rect, style=filled];
+420 [class=intent, fillcolor=lightblue, label="how does the payment work?", shape=rect, style=filled];
+421 [class=intent, fillcolor=lightblue, label="Hi, i'm Giovanni.", shape=rect, style=filled];
+422 [class=intent, fillcolor=lightblue, label="Why do you need my name?", shape=rect, style=filled];
+423 [class=intent, fillcolor=lightblue, label="What can you do?", shape=rect, style=filled];
+424 [class=intent, fillcolor=lightblue, label="i would like to order a pizza", shape=rect, style=filled];
+425 [class=intent, fillcolor=lightblue, label="can i order a pizza?", shape=rect, style=filled];
+426 [class=intent, fillcolor=lightblue, label="i have to go now", shape=rect, style=filled];
+427 [class=intent, fillcolor=lightblue, label="it's fine", shape=rect, style=filled];
+428 [class=intent, fillcolor=lightblue, label="i changed my mind", shape=rect, style=filled];
+429 [class=intent, fillcolor=lightblue, label=N, shape=rect, style=filled];
+430 [class=intent, fillcolor=lightblue, label=no, shape=rect, style=filled];
+431 [class=intent, fillcolor=lightblue, label="no, please", shape=rect, style=filled];
+0 -> 14  [class="", key=NONE, label=""];
+0 -> 95  [class="", key=NONE, label=""];
+0 -> 268  [class="", key=NONE, label=""];
+0 -> 287  [class="", key=NONE, label=""];
+0 -> 18  [class="", key=NONE, label=""];
+0 -> 360  [class="", key=0];
+0 -> 361  [class="", key=0];
+0 -> 362  [class="", key=0];
+0 -> 363  [class="", key=0];
+0 -> 364  [class="", key=0];
+0 -> 365  [class="", key=0];
+0 -> 366  [class="", key=0];
+0 -> 367  [class="", key=0];
+0 -> 368  [class="", key=0];
+0 -> 369  [class="", key=0];
+0 -> 370  [class="", key=0];
+0 -> 371  [class="", key=0];
+0 -> 372  [class="", key=0];
+0 -> 373  [class="", key=0];
+0 -> 374  [class="", key=0];
+0 -> 375  [class="", key=0];
+0 -> 376  [class="", key=0];
+0 -> 377  [class="", key=0];
+0 -> 378  [class="", key=0];
+0 -> 379  [class="", key=0];
+1 -> "-1"  [class="", key=NONE, label=""];
+2 -> "-1"  [class="", key=NONE, label=""];
+3 -> "-1"  [class="", key=NONE, label=""];
+4 -> "-1"  [class="", key=NONE, label=""];
+5 -> "-1"  [class="", key=NONE, label=""];
+6 -> "-1"  [class="", key=NONE, label=""];
+7 -> "-1"  [class="", key=NONE, label=""];
+8 -> "-1"  [class="", key=NONE, label=""];
+8 -> 18  [class="", key=NONE, label=""];
+9 -> "-1"  [class="", key=NONE, label=""];
+10 -> "-1"  [class="", key=NONE, label=""];
+11 -> "-1"  [class="", key=NONE, label=""];
+12 -> "-1"  [class="", key=NONE, label=""];
+14 -> 380  [class="", key=0];
+14 -> 381  [class="", key=0];
+16 -> "-1"  [class="", key=NONE, label=""];
+18 -> 21  [class="", key=NONE, label=""];
+18 -> 382  [class="", key=0];
+21 -> 383  [class="", key=0];
+22 -> 14  [class="", key=NONE, label=""];
+22 -> 28  [class="", key=NONE, label=""];
+28 -> "-1"  [class="", key=NONE, label=""];
+28 -> 384  [class="", key=0];
+29 -> 30  [class="", key=NONE, label=""];
+29 -> 87  [class="", key=NONE, label=""];
+29 -> 385  [class="", key=0];
+30 -> 32  [class="", key=NONE, label=""];
+30 -> 52  [class="", key=NONE, label=""];
+30 -> 386  [class="", key=0];
+32 -> 387  [class="", key=0];
+33 -> 34  [class="", key=NONE, label=""];
+34 -> "-1"  [class="", key=NONE, label=""];
+35 -> 36  [class="", key=NONE, label=""];
+35 -> 388  [class="", key=0];
+36 -> 35  [class="", key=NONE, label=""];
+36 -> 18  [class="", key=NONE, label=""];
+52 -> 389  [class="", key=0];
+53 -> 32  [class="", key=NONE, label=""];
+87 -> 390  [class="", key=0];
+87 -> 391  [class="", key=0];
+87 -> 392  [class="", key=0];
+87 -> 393  [class="", key=0];
+88 -> 89  [class="", key=NONE, label=""];
+89 -> 394  [class="", key=0];
+89 -> 395  [class="", key=0];
+89 -> 396  [class="", key=0];
+89 -> 397  [class="", key=0];
+95 -> 398  [class="", key=0];
+96 -> 97  [class="", key=NONE, label=""];
+96 -> 35  [class="", key=NONE, label=""];
+96 -> 12  [class="", key=NONE, label=""];
+96 -> 18  [class="", key=NONE, label=""];
+97 -> 399  [class="", key=0];
+97 -> 400  [class="", key=0];
+98 -> 18  [class="", key=NONE, label=""];
+106 -> 107  [class="", key=NONE, label=""];
+106 -> 12  [class="", key=NONE, label=""];
+107 -> 401  [class="", key=0];
+108 -> 35  [class="", key=NONE, label=""];
+134 -> 52  [class="", key=NONE, label=""];
+134 -> 402  [class="", key=0];
+138 -> 139  [class="", key=NONE, label=""];
+138 -> 52  [class="", key=NONE, label=""];
+139 -> "-1"  [class="", key=NONE, label=""];
+139 -> 403  [class="", key=0];
+140 -> 404  [class="", key=0];
+140 -> 405  [class="", key=0];
+141 -> 32  [class="", key=NONE, label=""];
+141 -> 315  [class="", key=NONE, label=""];
+148 -> 18  [class="", key=NONE, label=""];
+203 -> 204  [class="", key=NONE, label=""];
+204 -> 406  [class="", key=0];
+205 -> 206  [class="", key=NONE, label=""];
+206 -> 34  [class="", key=NONE, label=""];
+231 -> 232  [class="", key=NONE, label=""];
+231 -> 324  [class="", key=NONE, label=""];
+232 -> 236  [class="", key=NONE, label=""];
+232 -> 244  [class="", key=NONE, label=""];
+232 -> 407  [class="", key=0];
+236 -> 408  [class="", key=0];
+237 -> "-1"  [class="", key=NONE, label=""];
+237 -> 409  [class="", key=0];
+238 -> 410  [class="", key=0];
+239 -> 34  [class="", key=NONE, label=""];
+244 -> 411  [class="", key=0];
+245 -> 236  [class="", key=NONE, label=""];
+245 -> 232  [class="", key=NONE, label=""];
+268 -> 269  [class="", key=NONE, label=""];
+269 -> "-1"  [class="", key=NONE, label=""];
+269 -> 412  [class="", key=0];
+287 -> 268  [class="", key=NONE, label=""];
+287 -> 293  [class="", key=NONE, label=""];
+287 -> 21  [class="", key=NONE, label=""];
+287 -> 301  [class="", key=NONE, label=""];
+287 -> 138  [class="", key=NONE, label=""];
+287 -> 32  [class="", key=NONE, label=""];
+287 -> 311  [class="", key=NONE, label=""];
+287 -> 238  [class="", key=NONE, label=""];
+287 -> 336  [class="", key=NONE, label=""];
+287 -> 232  [class="", key=NONE, label=""];
+287 -> 413  [class="", key=0];
+287 -> 414  [class="", key=0];
+287 -> 415  [class="", key=0];
+287 -> 416  [class="", key=0];
+287 -> 417  [class="", key=0];
+287 -> 418  [class="", key=0];
+287 -> 419  [class="", key=0];
+287 -> 420  [class="", key=0];
+287 -> 421  [class="", key=0];
+287 -> 422  [class="", key=0];
+287 -> 423  [class="", key=0];
+287 -> 424  [class="", key=0];
+287 -> 425  [class="", key=0];
+287 -> 426  [class="", key=0];
+287 -> 427  [class="", key=0];
+293 -> 428  [class="", key=0];
+294 -> 12  [class="", key=NONE, label=""];
+301 -> 429  [class="", key=0];
+302 -> "-1"  [class="", key=NONE, label=""];
+311 -> 430  [class="", key=0];
+312 -> "-1"  [class="", key=NONE, label=""];
+315 -> "-1"  [class="", key=NONE, label=""];
+321 -> "-1"  [class="", key=NONE, label=""];
+324 -> "-1"  [class="", key=NONE, label=""];
+330 -> "-1"  [class="", key=NONE, label=""];
+336 -> 431  [class="", key=0];
+337 -> "-1"  [class="", key=NONE, label=""];
+339 -> "-1"  [class="", key=NONE, label=""];
+341 -> "-1"  [class="", key=NONE, label=""];
+343 -> "-1"  [class="", key=NONE, label=""];
+353 -> 354  [class="", key=NONE, label=""];
+354 -> "-1"  [class="", key=NONE, label=""];
+356 -> 357  [class="", key=NONE, label=""];
+357 -> "-1"  [class="", key=NONE, label=""];
+360 -> 1  [class="", key=0];
+361 -> 2  [class="", key=0];
+362 -> 3  [class="", key=0];
+363 -> 4  [class="", key=0];
+364 -> 5  [class="", key=0];
+365 -> 6  [class="", key=0];
+366 -> 7  [class="", key=0];
+367 -> 8  [class="", key=0];
+368 -> 9  [class="", key=0];
+369 -> 10  [class="", key=0];
+370 -> 11  [class="", key=0];
+371 -> 12  [class="", key=0];
+372 -> 16  [class="", key=0];
+373 -> 35  [class="", key=0];
+374 -> 95  [class="", key=0];
+375 -> 106  [class="", key=0];
+376 -> 231  [class="", key=0];
+377 -> 96  [class="", key=0];
+378 -> 18  [class="", key=0];
+379 -> 232  [class="", key=0];
+380 -> 12  [class="", key=0];
+381 -> 18  [class="", key=0];
+382 -> 18  [class="", key=0];
+383 -> 22  [class="", key=0];
+384 -> 29  [class="", key=0];
+385 -> 89  [class="", key=0];
+386 -> 30  [class="", key=0];
+387 -> 33  [class="", key=0];
+388 -> 36  [class="", key=0];
+389 -> 53  [class="", key=0];
+390 -> 88  [class="", key=0];
+391 -> 134  [class="", key=0];
+392 -> 203  [class="", key=0];
+393 -> 89  [class="", key=0];
+394 -> 89  [class="", key=0];
+395 -> 89  [class="", key=0];
+396 -> 138  [class="", key=0];
+397 -> 30  [class="", key=0];
+398 -> 96  [class="", key=0];
+399 -> 98  [class="", key=0];
+400 -> 148  [class="", key=0];
+401 -> 108  [class="", key=0];
+402 -> 88  [class="", key=0];
+403 -> 140  [class="", key=0];
+404 -> 141  [class="", key=0];
+405 -> 141  [class="", key=0];
+406 -> 205  [class="", key=0];
+407 -> 232  [class="", key=0];
+408 -> 237  [class="", key=0];
+409 -> 238  [class="", key=0];
+410 -> 239  [class="", key=0];
+411 -> 245  [class="", key=0];
+412 -> 18  [class="", key=0];
+413 -> 12  [class="", key=0];
+414 -> 12  [class="", key=0];
+415 -> 141  [class="", key=0];
+416 -> 205  [class="", key=0];
+417 -> 321  [class="", key=0];
+418 -> 231  [class="", key=0];
+419 -> 330  [class="", key=0];
+420 -> 339  [class="", key=0];
+421 -> 341  [class="", key=0];
+422 -> 343  [class="", key=0];
+423 -> 4  [class="", key=0];
+424 -> 96  [class="", key=0];
+425 -> 106  [class="", key=0];
+426 -> 353  [class="", key=0];
+427 -> 356  [class="", key=0];
+428 -> 294  [class="", key=0];
+429 -> 302  [class="", key=0];
+430 -> 312  [class="", key=0];
+431 -> 337  [class="", key=0];
+}
+`;
+    drawGraph(graph);
+  } else {
+    serveGraph();
+  }
+
+
+</script>
+</body>
+</html>
